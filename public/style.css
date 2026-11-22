@@ -1,0 +1,167 @@
+/* Style commun a toutes les pages Nomina Memoria. Couleurs : a modifier ici uniquement. */
+:root {
+  --bleu: #1e3a5f; --nuit: #0f1d30; --vert: #2f7d4f; --pomme: #c0392b; --or: #c8932e; --or-clair: #f0d9a8;
+  --creme: #fbf6ec; --papier: #f3ead7; --texte: #23262b; --doux: #5b6170; --bord: #e4dccb;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; font-family: Inter, system-ui, sans-serif; color: var(--texte); background: var(--creme); line-height: 1.65; overflow-x: hidden; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+h1, h2, h3 { font-family: Fraunces, Georgia, serif; line-height: 1.15; margin: 0 0 .6em; }
+h2 { font-size: clamp(1.8rem, 4vw, 2.7rem); }
+h3 { font-size: 1.3rem; }
+p { margin: 0 0 1em; }
+.conteneur { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+.etroit { max-width: 760px; }
+.surtitre { font-size: .8rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--or); margin-bottom: .8em; display: block; }
+section { padding: 88px 0; }
+.intro { max-width: 640px; color: var(--doux); }
+.clair { color: #fff; }
+
+/* Bilingue : chaque texte existe en deux versions, on masque l'autre langue (sauf les boutons FR / EN) */
+html[lang="fr"] [lang="en"]:not(.choix-langue button) { display: none !important; }
+html[lang="en"] [lang="fr"]:not(.choix-langue button) { display: none !important; }
+
+/* Barre du haut */
+.barre { position: fixed; inset: 0 0 auto; z-index: 10; transition: background .3s, box-shadow .3s; }
+.barre.pleine { background: rgba(15,29,48,.94); box-shadow: 0 4px 20px rgba(0,0,0,.2); backdrop-filter: blur(6px); }
+.barre .conteneur { display: flex; align-items: center; justify-content: space-between; height: 68px; gap: 12px; }
+.marque { display: flex; align-items: center; gap: 10px; color: #fff; text-decoration: none; font-weight: 700; font-family: Fraunces, Georgia, serif; font-size: 1.1rem; }
+.marque-village { font-family: Inter, sans-serif; font-weight: 500; font-size: .9rem; color: var(--or-clair); }
+.monogramme { width: 38px; height: 38px; border-radius: 10px; background: var(--or-clair); color: var(--nuit); display: inline-flex; align-items: center; justify-content: center; font: 800 .95rem Fraunces, Georgia, serif; flex-shrink: 0; }
+.barre-droite { display: flex; align-items: center; gap: 10px; }
+.choix-langue { display: flex; border: 1px solid rgba(255,255,255,.35); border-radius: 999px; overflow: hidden; }
+.choix-langue button { background: none; border: 0; color: #fff; font: 600 .8rem Inter, sans-serif; padding: 7px 12px; cursor: pointer; }
+.choix-langue button[aria-pressed="true"] { background: #fff; color: var(--nuit); }
+
+/* Boutons */
+.bouton { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 15px 28px; border-radius: 12px; font-weight: 700; text-decoration: none; border: 2px solid transparent; transition: transform .2s, box-shadow .2s, background .2s; cursor: pointer; font-size: 1rem; }
+.bouton:hover { transform: translateY(-2px); }
+.bouton-or { background: var(--or); color: #fff; box-shadow: 0 10px 30px rgba(200,147,46,.35); }
+.bouton-or:hover { background: #b07f22; }
+.bouton-clair { border-color: rgba(255,255,255,.6); color: #fff; }
+.bouton-clair:hover { background: rgba(255,255,255,.12); }
+.bouton-bleu { background: var(--bleu); color: #fff; }
+.bouton-bleu:hover { background: var(--nuit); }
+.bouton-petit { padding: 8px 16px; font-size: .85rem; border-radius: 10px; }
+.actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 28px; }
+.actions.centre { justify-content: center; margin-top: 44px; }
+
+/* En-tete (l'image de fond est donnee par la page, dans l'attribut style) */
+.heros { position: relative; min-height: min(100vh, 860px); display: flex; align-items: flex-end; color: #fff; padding: 120px 0 80px; background-size: cover; background-position: center 40%; }
+.heros h1 { font-size: clamp(2.3rem, 6.5vw, 4.6rem); max-width: 15ch; }
+.heros .accroche { font-size: clamp(1.05rem, 2vw, 1.3rem); max-width: 640px; color: #e9e4d8; }
+.heros .dates { font-family: Fraunces, serif; font-size: 1.1rem; color: var(--or-clair); margin-bottom: 14px; display: block; }
+.heros-programme { align-items: center; }
+.heros .titre-programme { font-size: clamp(3rem, 10vw, 6.5rem); max-width: none; letter-spacing: -.01em; margin-bottom: .2em; }
+.heros .sous-titre { font-family: Fraunces, serif; font-size: clamp(1.3rem, 3vw, 2rem); color: var(--or-clair); max-width: 22ch; line-height: 1.25; }
+.credit { position: absolute; right: 20px; bottom: 12px; font-size: .72rem; color: rgba(255,255,255,.55); margin: 0; max-width: 60%; text-align: right; }
+
+/* Chiffres */
+.chiffres { background: var(--nuit); color: #fff; padding: 44px 0; }
+.chiffres .grille { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; text-align: center; }
+.chiffre b { display: block; font-family: Fraunces, serif; font-size: clamp(1.7rem, 3.4vw, 2.5rem); color: var(--or-clair); }
+.chiffre span { font-size: .9rem; color: #c9cdd6; }
+
+/* Recit */
+.recit { background: var(--creme); }
+.recit .grille { display: grid; grid-template-columns: 1.1fr .9fr; gap: 56px; align-items: center; }
+.recit p { font-size: 1.1rem; }
+.citation { font-family: Fraunces, serif; font-size: 1.45rem !important; color: var(--bleu); border-left: 4px solid var(--or); padding-left: 20px; margin: 28px 0; }
+figure { margin: 0; }
+figure img { border-radius: 14px; box-shadow: 0 25px 50px rgba(30,58,95,.22); }
+figcaption { font-size: .8rem; color: var(--doux); margin-top: 10px; }
+
+/* Frise */
+.frise { background: var(--papier); }
+.frise ol { list-style: none; margin: 40px 0 0; padding: 0; position: relative; }
+.frise ol::before { content: ""; position: absolute; left: 76px; top: 6px; bottom: 6px; width: 2px; background: var(--or); opacity: .5; }
+.frise li { display: grid; grid-template-columns: 76px 1fr; gap: 28px; padding: 14px 0; position: relative; }
+.frise li::before { content: ""; position: absolute; left: 71px; top: 24px; width: 12px; height: 12px; border-radius: 50%; background: var(--or); }
+.frise .annee { font-family: Fraunces, serif; font-weight: 800; font-size: 1.25rem; color: var(--bleu); text-align: right; padding-right: 14px; }
+.frise li p { margin: 0; padding-top: 3px; }
+
+/* Methode */
+.pari .etapes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 40px; }
+.carte { background: #fff; border: 1px solid var(--bord); border-radius: 18px; padding: 28px; }
+.carte .num { width: 44px; height: 44px; border-radius: 12px; background: var(--bleu); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 800; margin-bottom: 14px; }
+.pari .carte p { color: var(--doux); margin: 0; }
+.encadre { margin-top: 36px; background: var(--bleu); color: #fff; border-radius: 18px; padding: 32px; }
+.encadre p { margin: 0; color: #dfe5ee; font-size: 1.08rem; }
+.encadre strong { color: #fff; }
+.encadre a { color: var(--or-clair); font-weight: 700; }
+
+/* Dons et villages */
+.dons { background: linear-gradient(180deg, var(--creme), #fff); }
+.dons .grille { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; margin-top: 40px; }
+.don { background: #fff; border: 1px solid var(--bord); border-radius: 20px; padding: 30px; display: flex; flex-direction: column; transition: transform .2s, box-shadow .2s; }
+.don:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(30,58,95,.12); }
+.don .montant { font-family: Fraunces, serif; font-weight: 800; font-size: 1.8rem; color: var(--pomme); line-height: 1.1; margin-bottom: 10px; }
+.don p { color: var(--doux); flex: 1; }
+.don a { align-self: flex-start; }
+.don.vedette { background: var(--nuit); color: #fff; border-color: var(--nuit); }
+.don.vedette .montant { color: var(--or-clair); }
+.don.vedette p { color: #c9cdd6; }
+.village { display: flex; flex-direction: column; background: #fff; border: 1px solid var(--bord); border-radius: 20px; overflow: hidden; text-decoration: none; transition: transform .2s, box-shadow .2s; }
+.village:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(30,58,95,.14); }
+.village img { width: 100%; height: 220px; object-fit: cover; object-position: center 40%; }
+.village-texte { padding: 26px 28px; display: flex; flex-direction: column; flex: 1; }
+.village-texte h3 { font-size: 1.8rem; margin: 8px 0 2px; }
+.village-texte p { color: var(--doux); flex: 1; margin-top: 12px; }
+.village .lieu { font-size: .9rem; color: var(--doux); }
+.etiquette { align-self: flex-start; font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; background: var(--or-clair); color: var(--nuit); padding: 4px 10px; border-radius: 999px; }
+.lien-fleche { font-weight: 700; color: var(--bleu); }
+.village-vide { border: 2px dashed var(--or); background: var(--creme); justify-content: center; }
+.village-vide .etiquette { background: #fff; }
+
+/* Universites / lancer son village (fond sombre) */
+.universites { background: var(--nuit); color: #fff; }
+.universites .grille { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+.universites .deux-colonnes { align-items: start; margin-top: 32px; }
+.universites h3 { color: var(--or-clair); }
+.universites ul { margin: 0; padding: 0; list-style: none; }
+.universites li { padding: 12px 0 12px 32px; border-bottom: 1px solid rgba(255,255,255,.12); position: relative; color: #dfe5ee; }
+.universites li::before { content: "✦"; position: absolute; left: 0; color: var(--or-clair); }
+.universites p { color: #c9cdd6; }
+.universites .bouton { margin-top: 10px; }
+
+/* Transparence */
+.transparence .carte { border-left: 5px solid var(--vert); }
+.transparence .carte p { color: var(--texte); margin-bottom: .8em; }
+.transparence .carte .bouton { margin-top: 8px; }
+
+/* Appel final (l'image de fond est donnee par la page) */
+.final { text-align: center; color: #fff; background-size: cover; background-position: center; }
+.final p { color: #dfe5ee; font-size: 1.1rem; }
+.final .actions { justify-content: center; }
+
+footer { background: #0a1422; color: #9aa3b2; padding: 44px 0; font-size: .9rem; }
+footer .grille { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; }
+footer a { color: var(--or-clair); }
+.pied-asso { display: flex; gap: 14px; align-items: flex-start; }
+.pied-asso img { border-radius: 50%; background: #fff; flex-shrink: 0; }
+
+/* Apparition au defilement (seulement si le script tourne) */
+.js .apparait { opacity: 0; transform: translateY(26px); transition: opacity .8s ease, transform .8s ease; }
+.js .apparait.visible { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .js .apparait { opacity: 1; transform: none; transition: none; }
+  html { scroll-behavior: auto; }
+}
+
+@media (max-width: 860px) {
+  section { padding: 64px 0; }
+  .recit .grille, .universites .grille { grid-template-columns: 1fr; gap: 36px; }
+  .pari .etapes, .dons .grille { grid-template-columns: 1fr; }
+  .chiffres .grille { grid-template-columns: repeat(2, 1fr); }
+  .barre .bouton-petit, .marque-village { display: none; }
+  .credit { position: static; max-width: none; text-align: left; margin-top: 28px; }
+}
+@media (max-width: 480px) {
+  .conteneur { padding: 0 16px; }
+  .frise ol::before { left: 56px; } .frise li { grid-template-columns: 56px 1fr; gap: 22px; } .frise li::before { left: 51px; }
+  .frise .annee { font-size: 1.05rem; padding-right: 8px; }
+  .heros .actions .bouton { width: 100%; }
+  .bouton { padding: 14px 20px; }
+}
