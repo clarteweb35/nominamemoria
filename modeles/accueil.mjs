@@ -1,6 +1,6 @@
 // Page d'accueil du programme : presentation, methode, liste des villages, lancer son village, soutenir.
 import { PROGRAMME } from '../programme.mjs';
-import { t, bloc, attr, page, sectionMethode, MONOGRAMME, nomOrne } from './commun.mjs';
+import { t, tx, bloc, attr, page, sectionMethode, MONOGRAMME, nomOrne, racineDe, lien } from './commun.mjs';
 
 // Ce qu'il faut pour lancer un village, et ce que le programme apporte.
 const IL_FAUT = [
@@ -9,21 +9,23 @@ const IL_FAUT = [
   { fr: 'Quelques bénévoles curieux, même sans connaissance en écriture ancienne', en: 'A few curious volunteers, no knowledge of old handwriting needed' },
   { fr: 'Un ordinateur et un abonnement d’IA', en: 'A computer and an AI subscription' },
 ];
-const ON_APPORTE = [
+const ON_APPORTE = (pilote) => [
   { fr: 'La méthode de lecture et de vérification, testée sur le village pilote', en: 'The reading and checking method, tested in the pilot village' },
   { fr: 'Des outils, comme ThotSync pour télécharger les archives en ligne d’Ille-et-Vilaine', en: 'Tools, such as ThotSync to download the online archives of Ille-et-Vilaine' },
   { fr: 'Ce modèle de site bilingue, prêt à remplir pour votre village', en: 'This bilingual website template, ready to fill in for your village' },
-  { fr: 'Le retour d’expérience de Chaumeré : ce qui marche, ce qui coince', en: 'The Chaumeré experience: what works, what doesn’t' },
+  { fr: `Le retour d’expérience de ${pilote.nom} : ce qui marche, ce qui coince`, en: `The ${pilote.nom} experience: what works, what doesn’t` },
 ];
 
 export function pageAccueil(villages) {
-  const racine = '';
+  const racine = racineDe(0);
   const p = PROGRAMME.porteur;
-  const pilote = villages[0];
+  // Le village pilote illustre l'accueil : celui marque « pilote: true », sinon le premier.
+  const pilote = villages.find((v) => v.pilote) ?? villages[0];
+  const L = lien(racine);
 
   const contenu = `
 <!-- ============ EN-TETE ============ -->
-<section class="heros heros-programme" style="background-image: linear-gradient(180deg, rgba(15,29,48,.72) 0%, rgba(15,29,48,.85) 60%, rgba(15,29,48,.98) 100%), url('images/${pilote.slug}/${pilote.recit.figure.src}')">
+<section class="heros heros-programme" style="background-image: linear-gradient(180deg, rgba(15,29,48,.72) 0%, rgba(15,29,48,.85) 60%, rgba(15,29,48,.98) 100%), url('${racine}images/${pilote.slug}/${pilote.recit.figure.src}')">
   <div class="conteneur">
     <span class="dates">${t({ fr: 'Un programme pour la mémoire des villages', en: 'A programme for village memory' })}</span>
     <h1 class="titre-programme">${nomOrne()}</h1>
@@ -33,17 +35,17 @@ export function pageAccueil(villages) {
       en: 'In thousands of villages, four centuries of lives lie dormant in digitised registers that almost no one can read anymore. Nomina Memoria brings together artificial intelligence and volunteers to decipher, check and share them, village by village.',
     }, 'accroche')}
     <div class="actions">
-      <a href="${pilote.slug}/" class="bouton bouton-or">${t({ fr: `Découvrir le village pilote : ${pilote.nom}`, en: `Discover the pilot village: ${pilote.nom}` })} →</a>
+      <a href="${L}${pilote.slug}/" class="bouton bouton-or">${t({ fr: `Découvrir le village pilote : ${pilote.nom}`, en: `Discover the pilot village: ${pilote.nom}` })} →</a>
       <a href="#lancer" class="bouton bouton-clair">${t({ fr: 'Lancer votre village', en: 'Start your village' })}</a>
     </div>
-    <a class="porte-par" href="a-propos/">
-      <img src="${p.logo}" alt="" width="34" height="34">
-      <span>${t({ fr: `Un programme lancé par l’<strong>${p.nom}</strong>, association de Chaumeré (France) · Qui sommes-nous ?`, en: `A programme launched by <strong>${p.nom}</strong>, a non-profit in Chaumeré, France · About us` })}</span>
+    <a class="porte-par" href="${L}a-propos/">
+      <img src="${racine}${p.logo}" alt="" width="34" height="34">
+      <span>${t({ fr: `Un programme lancé par l’<strong>${p.nom}</strong>, association de ${p.commune} (France) · Qui sommes-nous ?`, en: `A programme launched by <strong>${p.nom}</strong>, a non-profit in ${p.commune}, France · About us` })}</span>
     </a>
     <!-- Legende du document en fond, dans l'espace libre a droite (sous les boutons sur petit ecran) -->
     <aside class="credit">
       <span class="credit-titre">📜 ${t({ fr: 'En arrière-plan', en: 'In the background' })}</span>
-      ${bloc('p', { fr: 'Registre paroissial de Chaumeré, 1609 : baptêmes et visite de l’évêque.', en: 'Chaumeré parish register, 1609: baptisms and the bishop’s visit.' })}
+      ${bloc('p', pilote.recit.figure.legende)}
       <p class="credit-source">${pilote.recit.figure.source}</p>
       ${pilote.recit.figure.transcription ? `<a href="${pilote.recit.figure.transcription}" target="_blank" rel="noopener">${t({ fr: 'Lire la transcription', en: 'Read the transcription (in French)' })} ↗</a>` : ''}
     </aside>
@@ -78,13 +80,13 @@ ${sectionMethode({
     <span class="surtitre">${t({ fr: 'Les villages', en: 'The villages' })}</span>
     ${bloc('h2', { fr: 'Choisissez un village à soutenir', en: 'Choose a village to support' })}
     ${bloc('p', {
-      fr: 'Chaque village est porté par une association locale : votre don va directement à elle (pour Chaumeré : l’A3PC). <a href="a-propos/">Qui sommes-nous ?</a>',
-      en: 'Each village is run by a local association: your gift goes directly to it (for Chaumeré: A3PC). <a href="a-propos/">About us</a>',
+      fr: `Chaque village est porté par une association locale : votre don va directement à elle (pour ${pilote.nom} : l’${pilote.association.sigle}). <a href="${L}a-propos/">Qui sommes-nous ?</a>`,
+      en: `Each village is run by a local association: your gift goes directly to it (for ${pilote.nom}: ${pilote.association.sigle}). <a href="${L}a-propos/">About us</a>`,
     }, 'intro')}
     <div class="grille grille-villages">
       ${villages.map((v) => `
-      <a class="village apparait" href="${v.slug}/">
-        <img src="images/${v.slug}/${v.images.entete}" alt="${attr(v.nom)}" loading="lazy">
+      <a class="village apparait" href="${L}${v.slug}/">
+        <img src="${racine}images/${v.slug}/${v.images.entete}" alt="${attr(v.nom)}" loading="lazy">
         <div class="village-texte">
           <span class="etiquette">${t(v.statut)}</span>
           <h3>${v.nom}</h3>
@@ -117,7 +119,7 @@ ${sectionMethode({
       </div>
       <div class="apparait">
         <h3>${t({ fr: 'Ce que le programme vous apporte', en: 'What the programme gives you' })}</h3>
-        <ul>${ON_APPORTE.map((x) => `<li>${t(x)}</li>`).join('')}</ul>
+        <ul>${ON_APPORTE(pilote).map((x) => `<li>${t(x)}</li>`).join('')}</ul>
       </div>
     </div>
     <div class="actions centre">
@@ -137,8 +139,8 @@ ${sectionMethode({
         en: 'Digital humanities, historical demography, AI-assisted palaeography, genealogy: each village is a complete, human-scale case study, open to student projects and expert review.',
       })}
       ${bloc('p', {
-        fr: `Le programme a été lancé par l’<strong>${p.nom}</strong> (${p.nomComplet}), association loi 1901 de Chaumeré, en France. <a href="${p.site}" target="_blank" rel="noopener">En savoir plus sur l’association</a>.`,
-        en: `The programme was launched by <strong>${p.nom}</strong> (${p.nomComplet}), a French non-profit based in Chaumeré, France. <a href="${p.site}" target="_blank" rel="noopener">Learn more about the association</a> (in French).`,
+        fr: `Le programme a été lancé par l’<strong>${p.nom}</strong> (${p.nomComplet}), association loi 1901 de ${p.commune}, en France. <a href="${p.site}" target="_blank" rel="noopener">En savoir plus sur l’association</a>.`,
+        en: `The programme was launched by <strong>${p.nom}</strong> (${p.nomComplet}), a French non-profit based in ${p.commune}, France. <a href="${p.site}" target="_blank" rel="noopener">Learn more about the association</a> (in French).`,
       })}
       <a class="bouton bouton-bleu courriel" href="#" data-courriel="${p.courrielInverse}" data-sujet="Nomina Memoria : partenariat / partnership">${t({ fr: 'Proposer un partenariat', en: 'Propose a partnership' })}</a>
     </div>
@@ -146,7 +148,7 @@ ${sectionMethode({
 </section>
 
 <!-- ============ APPEL FINAL ============ -->
-<section class="final" style="background-image: linear-gradient(180deg, rgba(15,29,48,.88), rgba(15,29,48,.96)), url('images/${pilote.slug}/${pilote.images.final}')">
+<section class="final" style="background-image: linear-gradient(180deg, rgba(15,29,48,.88), rgba(15,29,48,.96)), url('${racine}images/${pilote.slug}/${pilote.images.final}')">
   <div class="conteneur etroit">
     ${bloc('h2', { fr: 'Ils ont vécu, aimé, travaillé dans nos villages. Aidez-nous à ne pas les oublier.', en: 'They lived, loved and worked in our villages. Help us remember them.' })}
     <div class="actions">
@@ -160,20 +162,33 @@ ${sectionMethode({
   const pied = `
     <div>
       <strong class="clair">${PROGRAMME.nom}</strong> · ${t(PROGRAMME.accroche)}<br>
-      ${t({ fr: 'Programme lancé par l’', en: 'Programme launched by ' })}<a href="${p.site}" target="_blank" rel="noopener">${p.nom}</a> · Chaumeré, France
+      ${t({ fr: 'Programme lancé par l’', en: 'Programme launched by ' })}<a href="${p.site}" target="_blank" rel="noopener">${p.nom}</a> · ${p.commune}, France
     </div>
     <div>
       ${t({ fr: 'Villages :', en: 'Villages:' })}
-      ${villages.map((v) => `<a href="${v.slug}/">${v.nom}</a>`).join(' · ')}
+      ${villages.map((v) => `<a href="${L}${v.slug}/">${v.nom}</a>`).join(' · ')}
     </div>`;
 
   return page({
-    titre: `${PROGRAMME.nom} — ${PROGRAMME.accroche.en}`,
-    description: `${PROGRAMME.accroche.en} AI and volunteers bring village registers back to life. ${PROGRAMME.accroche.fr}`,
+    titre: `${PROGRAMME.nom} — ${tx(PROGRAMME.accroche)}`,
+    description: t({
+      fr: `${PROGRAMME.accroche.fr} L’IA et des bénévoles redonnent vie aux registres des villages.`,
+      en: `${PROGRAMME.accroche.en} AI and volunteers bring village registers back to life.`,
+    }),
     chemin: '',
     racine,
     imagePartage: `images/${pilote.slug}/${pilote.recit.figure.src}`,
-    marque: `<a href="#" class="marque">${MONOGRAMME}<span>${nomOrne()}</span></a>`,
+    donnees: {
+      '@context': 'https://schema.org',
+      '@type': 'NGO',
+      name: p.nomComplet,
+      alternateName: p.nom,
+      url: p.site,
+      logo: PROGRAMME.adresse + p.logo,
+      address: { '@type': 'PostalAddress', streetAddress: p.siege, addressCountry: 'FR' },
+      owns: { '@type': 'WebSite', name: PROGRAMME.nom, url: PROGRAMME.adresse, inLanguage: ['en', 'fr'] },
+    },
+    marque: `<a href="${L}" class="marque">${MONOGRAMME}<span>${nomOrne()}</span></a>`,
     boutonHaut: `<a href="#villages" class="bouton bouton-or bouton-petit">${t({ fr: 'Soutenir', en: 'Support' })}</a>`,
     contenu,
     pied,

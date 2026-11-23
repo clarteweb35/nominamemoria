@@ -1,9 +1,9 @@
 // Page « Mentions legales et donnees personnelles » (/mentions-legales/), obligatoire pour un site edite en France.
 import { PROGRAMME } from '../programme.mjs';
-import { t, bloc, page, MONOGRAMME, nomOrne } from './commun.mjs';
+import { t, bloc, page, MONOGRAMME, nomOrne, racineDe, lien } from './commun.mjs';
 
 export function pageMentions(villages) {
-  const racine = '../';
+  const racine = racineDe(1);
   const p = PROGRAMME.porteur;
 
   // Chaque rubrique : un titre et des paragraphes, dans les deux langues (le HTML simple est autorise).
@@ -82,23 +82,23 @@ export function pageMentions(villages) {
       ${bloc('h2', r.titre)}
       ${r.textes.map((x) => bloc('p', x)).join('\n      ')}
     </div>`).join('')}
-    <p class="retour"><a href="${racine}">← ${t({ fr: 'Retour à l’accueil', en: 'Back to home page' })}</a></p>
+    <p class="retour"><a href="${lien(racine)}">← ${t({ fr: 'Retour à l’accueil', en: 'Back to home page' })}</a></p>
   </div>
 </section>
 `;
 
   const pied = `
     <div><strong class="clair">${PROGRAMME.nom}</strong> · ${t(PROGRAMME.accroche)}</div>
-    <div>${t({ fr: 'Villages :', en: 'Villages:' })} ${villages.map((v) => `<a href="${racine}${v.slug}/">${v.nom}</a>`).join(' · ')}</div>`;
+    <div>${t({ fr: 'Villages :', en: 'Villages:' })} ${villages.map((v) => `<a href="${lien(racine)}${v.slug}/">${v.nom}</a>`).join(' · ')}</div>`;
 
   return page({
-    titre: `${PROGRAMME.nom} — Legal notice / Mentions légales`,
-    description: 'Legal notice, privacy and cookies of the Nomina Memoria website. Mentions légales, données personnelles et cookies.',
+    titre: `${PROGRAMME.nom} — ${t({ fr: 'Mentions légales', en: 'Legal notice' })}`,
+    description: t({ fr: 'Mentions légales, données personnelles et cookies du site Nomina Memoria.', en: 'Legal notice, privacy and cookies of the Nomina Memoria website.' }),
     chemin: 'mentions-legales/',
     racine,
     imagePartage: '',
-    marque: `<a href="${racine}" class="marque">${MONOGRAMME}<span>${nomOrne()}</span></a>`,
-    boutonHaut: `<a href="${racine}#villages" class="bouton bouton-or bouton-petit">${t({ fr: 'Soutenir', en: 'Support' })}</a>`,
+    marque: `<a href="${lien(racine)}" class="marque">${MONOGRAMME}<span>${nomOrne()}</span></a>`,
+    boutonHaut: `<a href="${lien(racine)}#villages" class="bouton bouton-or bouton-petit">${t({ fr: 'Soutenir', en: 'Support' })}</a>`,
     contenu,
     pied,
   });

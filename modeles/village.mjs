@@ -1,9 +1,9 @@
 // Page d'un village (ex. /chaumere/), fabriquee a partir de son fichier villages/<nom>.mjs.
 import { PROGRAMME } from '../programme.mjs';
-import { t, bloc, attr, page, sectionMethode, MONOGRAMME, nomOrne } from './commun.mjs';
+import { t, tx, bloc, attr, page, sectionMethode, MONOGRAMME, nomOrne, racineDe, lien } from './commun.mjs';
 
 export function pageVillage(v) {
-  const racine = '../';
+  const racine = racineDe(1);
   const img = (fichier) => `${racine}images/${v.slug}/${fichier}`;
   const a = v.association;
 
@@ -23,7 +23,7 @@ export function pageVillage(v) {
       <a href="#donner" class="bouton bouton-or">${t({ fr: 'Soutenir le projet', en: 'Support the project' })} →</a>
       <a href="#histoire" class="bouton bouton-clair">${t({ fr: 'Découvrir l’histoire', en: 'Discover the story' })}</a>
     </div>
-    <a class="porte-par" href="${racine}a-propos/">
+    <a class="porte-par" href="${lien(racine)}a-propos/">
       <img src="${img(a.logo)}" alt="" width="34" height="34">
       <span>${t({ fr: `Un projet porté par l’<strong>${a.sigle}</strong>, association de ${v.nom} (France) · Qui sommes-nous ?`, en: `A project run by <strong>${a.sigle}</strong>, a non-profit in ${v.nom}, France · About us` })}</span>
     </a>
@@ -48,8 +48,8 @@ export function pageVillage(v) {
       ${v.recit.apres.map((p) => bloc('p', p)).join('\n      ')}
     </div>
     <figure class="apparait">
-      <a href="${img(v.recit.figure.src)}" class="agrandir" data-agrandir title="${attr('Voir en grand / View full size')}">
-        <img src="${img(v.recit.figure.src)}" width="${v.recit.figure.largeur}" height="${v.recit.figure.hauteur}" loading="lazy" alt="${attr(v.recit.figure.alt.fr + ' / ' + v.recit.figure.alt.en)}">
+      <a href="${img(v.recit.figure.src)}" class="agrandir" data-agrandir title="${attr(t({ fr: 'Voir en grand', en: 'View full size' }))}">
+        <img src="${img(v.recit.figure.src)}" width="${v.recit.figure.largeur}" height="${v.recit.figure.hauteur}" loading="lazy" alt="${attr(tx(v.recit.figure.alt))}">
         <span class="loupe" aria-hidden="true">⤢ ${t({ fr: 'Voir en grand', en: 'View full size' })}</span>
       </a>
       <figcaption>${t(v.recit.figure.legende)} ${v.recit.figure.source}${v.recit.figure.transcription ? ` <a href="${v.recit.figure.transcription}" target="_blank" rel="noopener">${t({ fr: 'Lire la transcription', en: 'Read the transcription (in French)' })} ↗</a>` : ''}</figcaption>
@@ -88,8 +88,8 @@ ${v.explorer ? `
 </section>` : ''}
 
 ${sectionMethode({
-    fr: `<strong>Ce que nous prouvons à ${v.nom} peut servir partout.</strong> Des milliers de villages ont des archives numérisées que personne ne lit. Si une petite association y arrive avec quelques ordinateurs et un abonnement d’IA, n’importe quel village le peut. <a href="${racine}#lancer">Lancer votre village</a>.`,
-    en: `<strong>What we prove in ${v.nom} can be used anywhere.</strong> Thousands of villages have digitised archives that nobody reads. If a small association can do it with a few computers and an AI subscription, any village can. <a href="${racine}#lancer">Start your village</a>.`,
+    fr: `<strong>Ce que nous prouvons à ${v.nom} peut servir partout.</strong> Des milliers de villages ont des archives numérisées que personne ne lit. Si une petite association y arrive avec quelques ordinateurs et un abonnement d’IA, n’importe quel village le peut. <a href="${lien(racine)}#lancer">Lancer votre village</a>.`,
+    en: `<strong>What we prove in ${v.nom} can be used anywhere.</strong> Thousands of villages have digitised archives that nobody reads. If a small association can do it with a few computers and an AI subscription, any village can. <a href="${lien(racine)}#lancer">Start your village</a>.`,
   })}
 
 <!-- ============ DONS ============ -->
@@ -102,8 +102,8 @@ ${sectionMethode({
     <div class="confiance apparait">
       <img src="${img(a.logo)}" alt="${attr('Logo ' + a.sigle)}" width="56" height="56">
       ${bloc('p', {
-        fr: `🛡️ <strong>Votre don va directement à l’${a.sigle}</strong>, l’association locale qui porte le projet de ${v.nom}. Sur HelloAsso, vous verrez son nom complet : <strong>« ${a.nom} »</strong>. C’est bien nous. <a href="${racine}a-propos/">Qui sommes-nous ?</a>`,
-        en: `🛡️ <strong>Your gift goes directly to ${a.sigle}</strong>, the local non-profit behind the ${v.nom} project. On HelloAsso you will see its full name: <strong>“${a.nom}”</strong>. That is us. <a href="${racine}a-propos/">About us</a>`,
+        fr: `🛡️ <strong>Votre don va directement à l’${a.sigle}</strong>, l’association locale qui porte le projet de ${v.nom}. Sur HelloAsso, vous verrez son nom complet : <strong>« ${a.nom} »</strong>. C’est bien nous. <a href="${lien(racine)}a-propos/">Qui sommes-nous ?</a>`,
+        en: `🛡️ <strong>Your gift goes directly to ${a.sigle}</strong>, the local non-profit behind the ${v.nom} project. On HelloAsso you will see its full name: <strong>“${a.nom}”</strong>. That is us. <a href="${lien(racine)}a-propos/">About us</a>`,
       })}
     </div>
     <div class="grille">
@@ -163,7 +163,7 @@ ${sectionMethode({
       <div>
       <strong class="clair">${a.sigle}</strong> · ${a.nom}<br>
       ${a.adresse} · ${a.numero}<br>
-      ${t({ fr: 'Un village du programme', en: 'A village of the' })} <a href="${racine}">${PROGRAMME.nom}</a>${t({ fr: '', en: ' programme' })}
+      ${t({ fr: 'Un village du programme', en: 'A village of the' })} <a href="${lien(racine)}">${PROGRAMME.nom}</a>${t({ fr: '', en: ' programme' })}
       </div>
     </div>
     <div>
@@ -172,12 +172,22 @@ ${sectionMethode({
     </div>`;
 
   return page({
-    titre: `${PROGRAMME.nom} · ${v.nom} — Support / Soutenir`,
-    description: v.accroche.en,
+    titre: `${PROGRAMME.nom} · ${v.nom} — ${t({ fr: 'Soutenir', en: 'Support' })}`,
+    description: tx(v.accroche),
+    donnees: {
+      '@context': 'https://schema.org',
+      '@type': 'NGO',
+      name: a.nom,
+      alternateName: a.sigle,
+      url: a.site,
+      logo: `${PROGRAMME.adresse}images/${v.slug}/${a.logo}`,
+      address: { '@type': 'PostalAddress', streetAddress: a.adresse, addressCountry: 'FR' },
+      description: tx(v.resume),
+    },
     chemin: `${v.slug}/`,
     racine,
     imagePartage: `images/${v.slug}/${v.images.entete}`,
-    marque: `<a href="${racine}" class="marque">${MONOGRAMME}<span>${nomOrne()} <span class="marque-village">· ${v.nom}</span></span></a>`,
+    marque: `<a href="${lien(racine)}" class="marque">${MONOGRAMME}<span>${nomOrne()} <span class="marque-village">· ${v.nom}</span></span></a>`,
     boutonHaut: `<a href="#donner" class="bouton bouton-or bouton-petit">${t({ fr: 'Je soutiens', en: 'Donate' })}</a>`,
     contenu,
     pied,

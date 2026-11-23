@@ -9,6 +9,9 @@ export default {
   slug: 'chaumere',
   nom: 'Chaumeré',
   ordre: 1,
+  // Village pilote du programme : celui dont la photo et l'histoire illustrent l'accueil.
+  // (Sans village marque « pilote », c'est le premier de la liste qui est utilise.)
+  pilote: true,
   statut: { fr: 'Village pilote', en: 'Pilot village' },
   lieu: { fr: 'Chaumeré, Bretagne', en: 'Chaumeré, Brittany, France' },
   periode: '1602 – 2026',

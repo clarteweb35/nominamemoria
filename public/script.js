@@ -2,21 +2,21 @@
 (function () {
   var racine = document.documentElement;
 
-  // Langue : anglais par defaut. ?lang=fr dans l'adresse (liens depuis a3pc.fr) ou choix memorise du visiteur pour le francais.
+  // Langue : une page par langue (anglais a la racine, francais sous /fr/), le selecteur FR / EN est fait de vrais liens.
+  // Ce script ne fait que (1) memoriser le choix quand on clique sur un des liens, (2) rediriger vers l'autre version si
+  // l'adresse contient ?lang=fr (liens depuis a3pc.fr) ou si le visiteur avait deja choisi cette langue.
   function lireChoix() { try { return localStorage.getItem('langue'); } catch (e) { return null; } }
-  function appliquer(langue) {
-    racine.lang = langue;
-    document.querySelectorAll('.choix-langue button').forEach(function (b) {
-      b.setAttribute('aria-pressed', b.dataset.langue === langue ? 'true' : 'false');
-    });
-  }
+  var langueDeLaPage = racine.lang === 'fr' ? 'fr' : 'en';
   var parametre = new URLSearchParams(location.search).get('lang');
-  var depart = parametre || lireChoix() || 'en';
-  appliquer(depart === 'fr' ? 'fr' : 'en');
-  document.querySelectorAll('.choix-langue button').forEach(function (b) {
-    b.addEventListener('click', function () {
-      appliquer(b.dataset.langue);
-      try { localStorage.setItem('langue', b.dataset.langue); } catch (e) {}
+  // Le choix memorise ne redirige que depuis la page anglaise (page par defaut) ; ?lang= s'applique partout.
+  var voulue = parametre === 'fr' || parametre === 'en' ? parametre : (langueDeLaPage === 'en' ? lireChoix() : null);
+  if (voulue && voulue !== langueDeLaPage) {
+    var lienVoulu = document.querySelector('.choix-langue a[data-langue="' + voulue + '"]');
+    if (lienVoulu) { location.replace(lienVoulu.href + location.hash); return; }
+  }
+  document.querySelectorAll('.choix-langue a').forEach(function (a) {
+    a.addEventListener('click', function () {
+      try { localStorage.setItem('langue', a.dataset.langue); } catch (e) {}
     });
   });
 

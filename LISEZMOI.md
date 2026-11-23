@@ -7,7 +7,7 @@ Programme bilingue (français / anglais) qui fait revivre les registres anciens 
 
 - Dépôt du code : https://github.com/clarteweb35/nominamemoria
 - Adresse : **https://nominamemoria.org/** : domaine acheté chez OVH (titulaire à vérifier : A3PC), **site affiché par GitHub Pages** (gratuit, HTTPS automatique).
-- **Langue : anglais par défaut**, bouton FR pour le français (choix mémorisé). Lien qui ouvre directement le français : ajouter `?lang=fr` à l'adresse (ex. `nominamemoria.org/chaumere/?lang=fr`, utilisé par a3pc.fr).
+- **Deux langues, deux adresses** : anglais à la racine (`/`, `/chaumere/`), français sous `/fr/` (`/fr/`, `/fr/chaumere/`). Le sélecteur FR / EN est fait de vrais liens ; chaque page déclare son équivalent (`hreflang`) et `sitemap.xml` les relie, pour que Google propose la bonne langue. Le script mémorise le choix du visiteur (depuis la page anglaise seulement) et `?lang=fr` redirige vers le français (liens existants d'a3pc.fr, ex. `nominamemoria.org/chaumere/?lang=fr`) ; on peut aussi lier directement `/fr/chaumere/`.
 - Domaine optionnel : `nomina-memoria.eu` (non acheté).
 
 ## Hébergement : pourquoi GitHub Pages et pas OVH
@@ -33,15 +33,17 @@ Aucun autre enregistrement A, AAAA ou CNAME pour `nominamemoria.org` et `www` (s
 
 | Fichier / dossier | Rôle |
 |---|---|
-| `programme.mjs` | Réglages communs : nom, accroche, adresse du site, porteur du programme, la méthode en 3 étapes. |
+| `programme.mjs` | Réglages communs : nom, accroche, adresse du site, porteur du programme (dont sa commune), la méthode en 3 étapes. |
 | `villages/<nom>.mjs` | **Tout ce qui est propre à un village** : textes FR/EN, chiffres, frise, façons de donner, liens, association locale. |
 | `images/<nom>/` | Les photos du village. |
-| `modeles/` | La mise en page : `accueil.mjs` (page du programme), `village.mjs` (page d'un village), `commun.mjs` (en-tête, langue, pied de page). |
-| `public/` | `style.css` (couleurs et mise en page), `script.js` (bouton de langue, liens e-mail, animations), `CNAME` (le domaine). |
-| `construire.mjs` | Fabrique le site dans `dist/` et vérifie les villages. |
+| `modeles/` | La mise en page : `accueil.mjs` (page du programme), `village.mjs` (page d'un village), `commun.mjs` (en-tête, langue, pied de page). Les modèles écrivent un texte `{ fr, en }` avec `t()` / `bloc()` dans la langue en cours ; `construire.mjs` rend chaque page une fois par langue. Aucun texte propre à un village dans l'accueil : il vient du fichier du village pilote. |
+| `public/` | `style.css` (couleurs et mise en page), `script.js` (choix de langue, liens e-mail, cookies, animations), `CNAME` (le domaine). |
+| `construire.mjs` | Fabrique le site dans `dist/` (une version par langue), vérifie les villages, écrit `sitemap.xml` et `robots.txt`, puis contrôle le HTML produit. |
 | `.github/workflows/deployer.yml` | À chaque envoi sur GitHub (`main`), le site est reconstruit et publié sur GitHub Pages tout seul. |
 
-Pages produites : `/` (accueil du programme) et `/<nom>/` pour chaque village (ex. `/chaumere/`).
+Pages produites, en anglais puis en français sous `/fr/` : `/` (accueil du programme), `/<nom>/` pour chaque village (ex. `/chaumere/`), `/a-propos/`, `/mentions-legales/`. Les pages portent aussi des données structurées (schema.org `NGO`) pour les moteurs de recherche.
+
+**Contrôles de `node construire.mjs`** (refus de construire ou échec, avec le détail) : champs obligatoires, deux langues partout, un seul village `pilote: true` au plus, slugs uniques et non réservés, toute image citée dans le fichier d'un village (frise, cartes, etc.) présente dans `images/<nom>/`, toute adresse externe en `https://` et valide, fichiers communs présents ; puis, dans le HTML produit, chaque lien interne, chaque ressource et chaque ancre (`#donner`…) doit exister, sans identifiant en double. Les liens externes ne sont pas testés en ligne.
 
 ## Cookies, Google et mentions légales
 
@@ -63,7 +65,7 @@ puis ouvrir `dist/index.html` par double-clic.
 
 ## Ajouter un village
 
-1. Copier `villages/chaumere.mjs` en `villages/<nom>.mjs` (minuscules, sans accent, ex. `pire.mjs`).
+1. Copier `villages/chaumere.mjs` en `villages/<nom>.mjs` (minuscules, sans accent, ex. `pire.mjs`). Retirer la ligne `pilote: true` (elle désigne Chaumeré, dont la photo illustre l'accueil).
 2. Dans ce fichier : changer `slug` (le même nom, ex. `'pire'`), `ordre` (2, 3…), puis **chaque texte, en français ET en anglais**.
 3. Mettre les photos dans `images/<nom>/` avec les noms indiqués dans le fichier (`images.entete`, `images.final`, `recit.figure.src`, `association.logo`).
 4. Lancer `node construire.mjs` : il refuse de construire si un champ, une photo ou une traduction manque, et dit lequel.

@@ -16,6 +16,8 @@ export const PROGRAMME = {
   porteur: {
     nom: 'A3PC',
     nomComplet: 'Association pour la Promotion du Pays de Chaumeré',
+    // Commune du porteur (texte de l'accueil : « association de Chaumeré, France »).
+    commune: 'Chaumeré',
     site: 'https://a3pc.fr/',
     siege: "4 allée de l'École, Chaumeré, 35113 Domagné, France",
     rna: 'W351007269',

@@ -1,10 +1,10 @@
 // Page « Qui sommes-nous / About us » (/a-propos/) : qui porte le programme, pourquoi deux noms, ou va l'argent.
 // But : qu'un donateur ne soit jamais surpris de voir le nom de l'association locale sur HelloAsso.
 import { PROGRAMME } from '../programme.mjs';
-import { t, bloc, attr, page, MONOGRAMME, nomOrne } from './commun.mjs';
+import { t, bloc, attr, page, MONOGRAMME, nomOrne, racineDe, lien } from './commun.mjs';
 
 export function pageAPropos(villages) {
-  const racine = '../';
+  const racine = racineDe(1);
   const p = PROGRAMME.porteur;
 
   const contenu = `
@@ -69,27 +69,30 @@ export function pageAPropos(villages) {
     <div class="rubrique">
       ${bloc('h2', { fr: 'Soutenir un village', en: 'Support a village' })}
       <ul class="liste-bureau">
-        ${villages.map((v) => `<li><a href="${racine}${v.slug}/#donner">${v.nom}</a> — ${t({ fr: `association locale : ${v.association.sigle}`, en: `local association: ${v.association.sigle}` })}</li>`).join('\n        ')}
+        ${villages.map((v) => `<li><a href="${lien(racine)}${v.slug}/#donner">${v.nom}</a> — ${t({ fr: `association locale : ${v.association.sigle}`, en: `local association: ${v.association.sigle}` })}</li>`).join('\n        ')}
       </ul>
     </div>
 
-    <p class="retour"><a href="${racine}">← ${t({ fr: 'Retour à l’accueil', en: 'Back to home page' })}</a></p>
+    <p class="retour"><a href="${lien(racine)}">← ${t({ fr: 'Retour à l’accueil', en: 'Back to home page' })}</a></p>
   </div>
 </section>
 `;
 
   const pied = `
     <div><strong class="clair">${PROGRAMME.nom}</strong> · ${t(PROGRAMME.accroche)}</div>
-    <div>${t({ fr: 'Villages :', en: 'Villages:' })} ${villages.map((v) => `<a href="${racine}${v.slug}/">${v.nom}</a>`).join(' · ')}</div>`;
+    <div>${t({ fr: 'Villages :', en: 'Villages:' })} ${villages.map((v) => `<a href="${lien(racine)}${v.slug}/">${v.nom}</a>`).join(' · ')}</div>`;
 
   return page({
-    titre: `${PROGRAMME.nom} — About us / Qui sommes-nous`,
-    description: `Nomina Memoria is a programme run by ${p.nom}, a French non-profit in Chaumeré (Brittany). Who we are and where your gift goes.`,
+    titre: `${PROGRAMME.nom} — ${t({ fr: 'Qui sommes-nous', en: 'About us' })}`,
+    description: t({
+      fr: `Nomina Memoria est un programme porté par l’${p.nom}, association de ${p.commune} (Bretagne). Qui nous sommes et où va votre don.`,
+      en: `Nomina Memoria is a programme run by ${p.nom}, a French non-profit in ${p.commune} (Brittany). Who we are and where your gift goes.`,
+    }),
     chemin: 'a-propos/',
     racine,
     imagePartage: '',
-    marque: `<a href="${racine}" class="marque">${MONOGRAMME}<span>${nomOrne()}</span></a>`,
-    boutonHaut: `<a href="${racine}#villages" class="bouton bouton-or bouton-petit">${t({ fr: 'Soutenir', en: 'Support' })}</a>`,
+    marque: `<a href="${lien(racine)}" class="marque">${MONOGRAMME}<span>${nomOrne()}</span></a>`,
+    boutonHaut: `<a href="${lien(racine)}#villages" class="bouton bouton-or bouton-petit">${t({ fr: 'Soutenir', en: 'Support' })}</a>`,
     contenu,
     pied,
   });

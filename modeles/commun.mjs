@@ -1,14 +1,31 @@
 // Morceaux communs a toutes les pages : textes bilingues, en-tete HTML, barre du haut, pied de page.
 import { PROGRAMME, METHODE } from '../programme.mjs';
 
-// Texte court dans les deux langues (le CSS masque la langue non choisie).
-export const t = (o) => `<span lang="fr">${o.fr}</span><span lang="en">${o.en}</span>`;
+// Langue de la page en cours de fabrication : le site est produit une fois par langue
+// (anglais a la racine, francais sous /fr/). construire.mjs appelle contexte() avant chaque rendu.
+export const LANGUES = ['en', 'fr'];
+const ctx = { lang: 'en' };
+export const contexte = (lang) => { ctx.lang = lang; };
+export const langue = () => ctx.lang;
 
-// Bloc (titre, paragraphe...) dans les deux langues.
+// Texte d'un objet { fr, en } dans la langue de la page (sans balise).
+export const tx = (o) => o[ctx.lang];
+
+// Texte court dans la langue de la page.
+export const t = (o) => o[ctx.lang];
+
+// Bloc (titre, paragraphe...) dans la langue de la page.
 export const bloc = (balise, o, classe = '') => {
   const c = classe ? ` class="${classe}"` : '';
-  return `<${balise}${c} lang="fr">${o.fr}</${balise}><${balise}${c} lang="en">${o.en}</${balise}>`;
+  return `<${balise}${c}>${o[ctx.lang]}</${balise}>`;
 };
+
+// Chemin vers la racine du site depuis une page situee a `profondeur` dossiers de sa version linguistique
+// (0 = accueil, 1 = /chaumere/...). Les pages francaises sont un dossier plus bas (/fr/...).
+export const racineDe = (profondeur) => '../'.repeat(profondeur + (ctx.lang === 'fr' ? 1 : 0));
+
+// Debut du chemin d'une page interne dans la langue courante : lien(racine) + 'a-propos/'.
+export const lien = (racine, chemin = '') => (racine + (ctx.lang === 'fr' ? 'fr/' : '') + chemin) || './';
 
 // Protege un texte place dans un attribut HTML (alt, title...).
 export const attr = (texte) => String(texte).replace(/&/g, '&amp;').replace(/"/g, '&quot;');
@@ -34,17 +51,28 @@ export function sectionMethode(conclusion) {
  * racine : chemin vers la racine du site depuis la page ('' pour l'accueil, '../' pour un village).
  * Les liens sont relatifs : le site marche quel que soit l'endroit ou il est ouvert (OVH, ou dist/ sur l'ordinateur).
  */
-export function page({ titre, description, chemin, racine, imagePartage, marque, boutonHaut, contenu, pied }) {
-  const urlPage = PROGRAMME.adresse + chemin;
+export function page({ titre, description, chemin, racine, imagePartage, marque, boutonHaut, contenu, pied, donnees }) {
+  const lang = ctx.lang;
+  const autre = lang === 'fr' ? 'en' : 'fr';
+  const prefixe = (l) => (l === 'fr' ? 'fr/' : '');
+  const urlPage = PROGRAMME.adresse + prefixe(lang) + chemin;
+  const urlLangue = (l) => PROGRAMME.adresse + prefixe(l) + chemin;
+  const hrefLangue = (l) => (racine + prefixe(l) + chemin) || './';
   const urlImage = imagePartage ? PROGRAMME.adresse + imagePartage : '';
   return `<!DOCTYPE html>
-<html lang="en">
+<html lang="${lang}">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${titre}</title>
 <meta name="description" content="${attr(description)}">
 <link rel="canonical" href="${urlPage}">
+<link rel="alternate" hreflang="en" href="${urlLangue('en')}">
+<link rel="alternate" hreflang="fr" href="${urlLangue('fr')}">
+<link rel="alternate" hreflang="x-default" href="${urlLangue('en')}">
+<meta property="og:locale" content="${lang === 'fr' ? 'fr_FR' : 'en_GB'}">
+<meta property="og:locale:alternate" content="${autre === 'fr' ? 'fr_FR' : 'en_GB'}">
+<meta property="og:site_name" content="${PROGRAMME.nom}">
 <meta property="og:type" content="website">
 <meta property="og:title" content="${attr(titre)}">
 <meta property="og:description" content="${attr(description)}">
@@ -59,7 +87,8 @@ ${urlImage ? `<meta property="og:image" content="${urlImage}">\n<meta name="twit
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <!-- Lettrines N et M du titre (Cinzel Decorative) : seules ces deux lettres sont telechargees -->
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&text=NM&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="${racine}style.css">
+<link rel="stylesheet" href="${racine}style.css">${donnees ? `
+<script type="application/ld+json">${JSON.stringify(donnees).replace(/</g, '\u003c')}</script>` : ''}
 </head>
 <body data-gtm="${PROGRAMME.idGoogleTagManager}">
 
@@ -67,10 +96,10 @@ ${urlImage ? `<meta property="og:image" content="${urlImage}">\n<meta name="twit
   <div class="conteneur">
     ${marque}
     <div class="barre-droite">
-      <div class="choix-langue" role="group" aria-label="Langue / Language">
-        <button type="button" data-langue="fr" lang="fr" aria-pressed="false">FR</button>
-        <button type="button" data-langue="en" lang="en" aria-pressed="true">EN</button>
-      </div>
+      <nav class="choix-langue" aria-label="Langue / Language">
+        <a href="${hrefLangue('fr')}" hreflang="fr" lang="fr" data-langue="fr"${lang === 'fr' ? ' aria-current="true"' : ''}>FR</a>
+        <a href="${hrefLangue('en')}" hreflang="en" lang="en" data-langue="en"${lang === 'en' ? ' aria-current="true"' : ''}>EN</a>
+      </nav>
       ${boutonHaut}
     </div>
   </div>
@@ -81,8 +110,8 @@ ${contenu}
     ${pied}
   </div>
   <div class="conteneur pied-legal">
-    <a href="${racine}a-propos/">${t({ fr: 'Qui sommes-nous ?', en: 'About us' })}</a> ·
-    <a href="${racine}mentions-legales/">${t({ fr: 'Mentions légales et données personnelles', en: 'Legal notice and privacy' })}</a> ·
+    <a href="${lien(racine)}a-propos/">${t({ fr: 'Qui sommes-nous ?', en: 'About us' })}</a> ·
+    <a href="${lien(racine)}mentions-legales/">${t({ fr: 'Mentions légales et données personnelles', en: 'Legal notice and privacy' })}</a> ·
     <button type="button" class="lien-cookies" data-ouvrir-cookies>${t({ fr: 'Cookies', en: 'Cookie settings' })}</button>
   </div>
 </footer>
@@ -93,8 +122,8 @@ ${contenu}
     <div>
       <p class="titre-cookies" id="titre-cookies">${t({ fr: 'Acceptez-vous la mesure d’audience ?', en: 'Do you accept audience measurement?' })}</p>
       ${bloc('p', {
-        fr: `Avec votre accord, nous utilisons les outils de Google (Google Tag Manager) pour savoir combien de personnes visitent ce site et d’où elles viennent. Ces outils déposent des cookies. Sans accord, rien n’est chargé et le site fonctionne tout aussi bien. <a href="${racine}mentions-legales/#donnees">En savoir plus</a>`,
-        en: `With your consent, we use Google tools (Google Tag Manager) to learn how many people visit this site and where they come from. These tools set cookies. Without consent, nothing is loaded and the site works just the same. <a href="${racine}mentions-legales/#donnees">Learn more</a>`,
+        fr: `Avec votre accord, nous utilisons les outils de Google (Google Tag Manager) pour savoir combien de personnes visitent ce site et d’où elles viennent. Ces outils déposent des cookies. Sans accord, rien n’est chargé et le site fonctionne tout aussi bien. <a href="${lien(racine)}mentions-legales/#donnees">En savoir plus</a>`,
+        en: `With your consent, we use Google tools (Google Tag Manager) to learn how many people visit this site and where they come from. These tools set cookies. Without consent, nothing is loaded and the site works just the same. <a href="${lien(racine)}mentions-legales/#donnees">Learn more</a>`,
       })}
     </div>
     <div class="choix-cookies">
@@ -106,7 +135,7 @@ ${contenu}
 
 <!-- Affichage en grand des documents d'archives (images marquees data-agrandir) -->
 <dialog class="visionneuse" id="visionneuse">
-  <button type="button" class="fermer" data-fermer-visionneuse aria-label="Fermer / Close">✕</button>
+  <button type="button" class="fermer" data-fermer-visionneuse aria-label="${t({ fr: 'Fermer', en: 'Close' })}">✕</button>
   <img src="" alt="" id="visionneuse-image">
   <p class="visionneuse-aide">${t({ fr: 'Faites défiler pour explorer le document · Échap ou ✕ pour fermer', en: 'Scroll to explore the document · Esc or ✕ to close' })}</p>
 </dialog>
