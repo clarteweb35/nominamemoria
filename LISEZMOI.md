@@ -43,6 +43,13 @@ Aucun autre enregistrement A, AAAA ou CNAME pour `nominamemoria.org` et `www` (s
 
 Pages produites : `/` (accueil du programme) et `/<nom>/` pour chaque village (ex. `/chaumere/`).
 
+## Cookies, Google et mentions légales
+
+- **Google Tag Manager** (`GTM-P55LC6PV`, réglé dans `programme.mjs`) n'est chargé **qu'après « Accepter »** dans le bandeau de cookies (question préalable obligatoire, RGPD/CNIL). Refuser n'en charge rien et efface les cookies Google. Choix gardé dans le navigateur ; lien « Cookies » en bas de page pour en changer. Ne jamais coller la balise Google en dur dans les pages.
+- Page **/mentions-legales/** (`modeles/mentions.mjs`) : éditeur (A3PC), directeur de la publication, hébergeur GitHub, domaine OVH, crédits, données personnelles et cookies. À mettre à jour si on ajoute un outil qui collecte des données.
+- **Documents en grand** : une image placée dans un lien `data-agrandir` s'ouvre en plein écran au clic (utilisé pour le registre de la page village).
+- Section **« Explorer les archives »** de la page village (`explorer` dans le fichier du village, facultative) : liens vers la recherche de noms, les actes transcrits, l'index des noms et les familles sur a3pc.fr.
+
 ## Voir le site sur son ordinateur
 
 ```
