@@ -21,6 +21,14 @@ export const PROGRAMME = {
     rna: 'W351007269',
     declaration: { fr: 'déclarée en préfecture le 27 septembre 2026', en: 'registered with the prefecture on 27 September 2026' },
     directeurPublication: { fr: 'Julien GUILLOIS, président de l’A3PC', en: 'Julien GUILLOIS, president of A3PC' },
+    // Logo (copie dans images/programme/) et bureau elu a l'assemblee generale constitutive du 27/09/2026 (publie sur a3pc.fr).
+    logo: 'images/programme/logo-a3pc.jpg',
+    bureau: [
+      { nom: 'Julien GUILLOIS', role: { fr: 'Président', en: 'President' } },
+      { nom: 'Laëtitia QUEGUINER', role: { fr: 'Trésorière', en: 'Treasurer' } },
+      { nom: 'Margarita GUILLOIS', role: { fr: 'Secrétaire', en: 'Secretary' } },
+    ],
+    pageAssociation: 'https://a3pc.fr/association/',
     // Adresse e-mail ecrite a l'envers (limite les robots qui collectent les adresses).
     courrielInverse: 'moc.liamg@cp3a.tcatnoc',
   },

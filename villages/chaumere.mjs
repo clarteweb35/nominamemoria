@@ -151,7 +151,7 @@ export default {
         montant: { fr: 'Montant libre', en: 'Any amount' },
         titre: { fr: 'Devenir membre bienfaiteur', en: 'Become a benefactor member' },
         texte: { fr: 'Le plus simple et le plus direct : vous choisissez le montant, payé en ligne en toute sécurité sur HelloAsso, la plateforme des associations françaises.', en: 'The simplest and most direct way: choose your amount and pay securely online on HelloAsso, the French platform for non-profits.' },
-        bouton: { fr: 'Donner sur HelloAsso', en: 'Give on HelloAsso' },
+        bouton: { fr: 'Donner à l’A3PC sur HelloAsso', en: 'Give to A3PC on HelloAsso' },
         lien: HELLOASSO,
       },
       {
@@ -172,7 +172,7 @@ export default {
         montant: { fr: '10 € / an', en: '€10 / year' },
         titre: { fr: 'Adhérer, où que vous viviez', en: 'Join, wherever you live' },
         texte: { fr: 'Chaque adhérent compte : plus nous sommes nombreux, plus l’association pèse auprès des Archives, des universités et des partenaires.', en: 'Every member counts: the more we are, the more weight the association carries with archives, universities and partners.' },
-        bouton: { fr: 'Adhérer', en: 'Join' },
+        bouton: { fr: 'Adhérer à l’A3PC', en: 'Join A3PC' },
         lien: HELLOASSO,
       },
     ],

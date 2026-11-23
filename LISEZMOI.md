@@ -50,6 +50,10 @@ Pages produites : `/` (accueil du programme) et `/<nom>/` pour chaque village (e
 - **Documents en grand** : une image placée dans un lien `data-agrandir` s'ouvre en plein écran au clic (utilisé pour le registre de la page village).
 - Section **« Explorer les archives »** de la page village (`explorer` dans le fichier du village, facultative) : liens vers la recherche de noms, les actes transcrits, l'index des noms et les familles sur a3pc.fr.
 
+## Lien avec l’association (confiance des donateurs)
+
+Sur HelloAsso, le donateur voit le nom de l’association locale (« Association pour la Promotion du Pays de Chaumeré »), pas « Nomina Memoria ». Pour qu’il ne soit pas surpris : page **/a-propos/** (`modeles/apropos.mjs` : pourquoi deux noms, où va le don, le bureau), mention « porté par l’A3PC » dans les en-têtes, encadré 🛡️ au-dessus des dons et boutons « Donner à l’A3PC ». Infos du porteur (bureau, logo, RNA) : `programme.mjs`.
+
 ## Voir le site sur son ordinateur
 
 ```

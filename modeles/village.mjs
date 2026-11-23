@@ -23,6 +23,10 @@ export function pageVillage(v) {
       <a href="#donner" class="bouton bouton-or">${t({ fr: 'Soutenir le projet', en: 'Support the project' })} →</a>
       <a href="#histoire" class="bouton bouton-clair">${t({ fr: 'Découvrir l’histoire', en: 'Discover the story' })}</a>
     </div>
+    <a class="porte-par" href="${racine}a-propos/">
+      <img src="${img(a.logo)}" alt="" width="34" height="34">
+      <span>${t({ fr: `Un projet porté par l’<strong>${a.sigle}</strong>, association de ${v.nom} (France) · Qui sommes-nous ?`, en: `A project run by <strong>${a.sigle}</strong>, a non-profit in ${v.nom}, France · About us` })}</span>
+    </a>
   </div>
 </section>
 
@@ -94,6 +98,14 @@ ${sectionMethode({
     <span class="surtitre">${t({ fr: 'Votre soutien, concrètement', en: 'Your support, in practice' })}</span>
     ${bloc('h2', { fr: 'Chaque aide se voit, page après page', en: 'Every contribution shows, page after page' })}
     ${bloc('p', v.dons.intro, 'intro')}
+    <!-- Pour que le nom de l'association sur HelloAsso ne surprenne personne -->
+    <div class="confiance apparait">
+      <img src="${img(a.logo)}" alt="${attr('Logo ' + a.sigle)}" width="56" height="56">
+      ${bloc('p', {
+        fr: `🛡️ <strong>Votre don va directement à l’${a.sigle}</strong>, l’association locale qui porte le projet de ${v.nom}. Sur HelloAsso, vous verrez son nom complet : <strong>« ${a.nom} »</strong>. C’est bien nous. <a href="${racine}a-propos/">Qui sommes-nous ?</a>`,
+        en: `🛡️ <strong>Your gift goes directly to ${a.sigle}</strong>, the local non-profit behind the ${v.nom} project. On HelloAsso you will see its full name: <strong>“${a.nom}”</strong>. That is us. <a href="${racine}a-propos/">About us</a>`,
+      })}
+    </div>
     <div class="grille">
       ${v.dons.cartes.map((c) => `
       <div class="don${c.vedette ? ' vedette' : ''} apparait">

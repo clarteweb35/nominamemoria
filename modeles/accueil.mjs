@@ -36,6 +36,10 @@ export function pageAccueil(villages) {
       <a href="${pilote.slug}/" class="bouton bouton-or">${t({ fr: `Découvrir le village pilote : ${pilote.nom}`, en: `Discover the pilot village: ${pilote.nom}` })} →</a>
       <a href="#lancer" class="bouton bouton-clair">${t({ fr: 'Lancer votre village', en: 'Start your village' })}</a>
     </div>
+    <a class="porte-par" href="a-propos/">
+      <img src="${p.logo}" alt="" width="34" height="34">
+      <span>${t({ fr: `Un programme lancé par l’<strong>${p.nom}</strong>, association de Chaumeré (France) · Qui sommes-nous ?`, en: `A programme launched by <strong>${p.nom}</strong>, a non-profit in Chaumeré, France · About us` })}</span>
+    </a>
     <p class="credit">${t({ fr: 'En fond : registre paroissial de Chaumeré, 1609.', en: 'Background: Chaumeré parish register, 1609.' })} ${pilote.recit.figure.source}</p>
   </div>
 </section>
@@ -68,8 +72,8 @@ ${sectionMethode({
     <span class="surtitre">${t({ fr: 'Les villages', en: 'The villages' })}</span>
     ${bloc('h2', { fr: 'Choisissez un village à soutenir', en: 'Choose a village to support' })}
     ${bloc('p', {
-      fr: 'Chaque village est porté par une association locale : votre don va directement à elle.',
-      en: 'Each village is run by a local association: your gift goes directly to it.',
+      fr: 'Chaque village est porté par une association locale : votre don va directement à elle (pour Chaumeré : l’A3PC). <a href="a-propos/">Qui sommes-nous ?</a>',
+      en: 'Each village is run by a local association: your gift goes directly to it (for Chaumeré: A3PC). <a href="a-propos/">About us</a>',
     }, 'intro')}
     <div class="grille grille-villages">
       ${villages.map((v) => `

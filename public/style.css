@@ -225,3 +225,29 @@ figcaption a { color: var(--bleu); font-weight: 600; }
 .lettrine { font-family: 'Cinzel Decorative', Fraunces, Georgia, serif; font-weight: 700; color: var(--or-clair); font-size: 1.12em; line-height: 0; }
 .titre-programme .lettrine:first-child { margin-left: .14em; }
 .marque .lettrine { font-size: 1.18em; }
+
+/* « Porte par l'A3PC » dans les en-tetes */
+.porte-par { display: inline-flex; align-items: center; gap: 10px; margin-top: 26px; padding: 6px 14px 6px 6px; border-radius: 999px; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2); color: #e9e4d8; font-size: .85rem; text-decoration: none; transition: background .2s; }
+.porte-par:hover { background: rgba(255,255,255,.18); }
+.porte-par img { border-radius: 50%; background: #fff; }
+.porte-par strong { color: #fff; }
+
+/* Encadre de confiance au-dessus des dons */
+.confiance { display: flex; gap: 16px; align-items: center; margin-top: 22px; padding: 16px 20px; background: #eef5f0; border: 1px solid #cfe3d5; border-left: 5px solid var(--vert); border-radius: 14px; max-width: 860px; }
+.confiance img { border-radius: 50%; background: #fff; flex-shrink: 0; }
+.confiance p { margin: 0; color: var(--texte); font-size: .95rem; }
+.confiance a, .intro a { color: var(--bleu); font-weight: 600; }
+
+/* Page « Qui sommes-nous » */
+.carte-porteur { display: flex; gap: 18px; align-items: center; background: #fff; border: 1px solid var(--bord); border-radius: 16px; padding: 20px 24px; margin-top: 10px; line-height: 1.6; }
+.carte-porteur img { border-radius: 50%; flex-shrink: 0; }
+.carte-porteur a { color: var(--bleu); font-weight: 600; }
+.encadre-don { border-left: 5px solid var(--vert); }
+.liste-bureau { margin: 0 0 1em; padding-left: 20px; }
+.liste-bureau li { margin: 4px 0; }
+.liste-bureau a { color: var(--bleu); font-weight: 600; }
+.rubrique .bouton { color: #fff; }
+@media (max-width: 480px) {
+  .confiance { flex-direction: column; align-items: flex-start; }
+  .carte-porteur { flex-direction: column; align-items: flex-start; }
+}

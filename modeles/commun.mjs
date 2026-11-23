@@ -78,6 +78,7 @@ ${contenu}
     ${pied}
   </div>
   <div class="conteneur pied-legal">
+    <a href="${racine}a-propos/">${t({ fr: 'Qui sommes-nous ?', en: 'About us' })}</a> ·
     <a href="${racine}mentions-legales/">${t({ fr: 'Mentions légales et données personnelles', en: 'Legal notice and privacy' })}</a> ·
     <button type="button" class="lien-cookies" data-ouvrir-cookies>${t({ fr: 'Cookies', en: 'Cookie settings' })}</button>
   </div>
