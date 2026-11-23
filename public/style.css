@@ -137,11 +137,11 @@ figcaption { font-size: .8rem; color: var(--doux); margin-top: 10px; }
 .final p { color: #dfe5ee; font-size: 1.1rem; }
 .final .actions { justify-content: center; }
 
-footer { background: #0a1422; color: #9aa3b2; padding: 44px 0; font-size: .9rem; }
-footer .grille { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; }
+footer { background: #0a1422; color: #9aa3b2; padding: 18px 0 12px; font-size: .78rem; line-height: 1.5; }
+footer .grille { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 24px; }
 footer a { color: var(--or-clair); }
-.pied-asso { display: flex; gap: 14px; align-items: flex-start; }
-.pied-asso img { border-radius: 50%; background: #fff; flex-shrink: 0; }
+.pied-asso { display: flex; gap: 10px; align-items: center; }
+.pied-asso img { width: 30px; height: 30px; border-radius: 50%; background: #fff; flex-shrink: 0; }
 
 /* Apparition au defilement (seulement si le script tourne) */
 .js .apparait { opacity: 0; transform: translateY(26px); transition: opacity .8s ease, transform .8s ease; }
@@ -168,18 +168,18 @@ footer a { color: var(--or-clair); }
 }
 
 /* Pied de page : mentions legales et reglage des cookies */
-.pied-legal { margin-top: 24px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.08); font-size: .82rem; }
+.pied-legal { margin-top: 10px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,.08); font-size: .74rem; }
 .lien-cookies { background: none; border: 0; padding: 0; color: var(--or-clair); text-decoration: underline; font: inherit; cursor: pointer; }
 
 /* Bandeau de cookies (question prealable) : les deux choix ont le meme poids, comme le demande la CNIL */
-.bandeau-cookies { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; background: #fff; color: var(--texte); box-shadow: 0 -10px 40px rgba(15,29,48,.25); border-top: 4px solid var(--or); padding: 20px 0; }
+.bandeau-cookies { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; background: #fff; color: var(--texte); box-shadow: 0 -10px 40px rgba(15,29,48,.25); border-top: 3px solid var(--or); padding: 10px 0; }
 .bandeau-cookies[hidden] { display: none; }
-.bandeau-cookies .conteneur { display: flex; gap: 24px; align-items: center; justify-content: space-between; }
-.bandeau-cookies p { margin: 0 0 .3em; font-size: .92rem; color: var(--doux); }
-.bandeau-cookies .titre-cookies { font-family: Fraunces, Georgia, serif; font-size: 1.1rem; color: var(--texte); }
+.bandeau-cookies .conteneur { display: flex; gap: 18px; align-items: center; justify-content: space-between; }
+.bandeau-cookies p { margin: 0; font-size: .8rem; line-height: 1.45; color: var(--doux); }
+.bandeau-cookies .titre-cookies { font-weight: 700; font-size: .85rem; color: var(--texte); margin-bottom: 2px; }
 .bandeau-cookies a { color: var(--bleu); font-weight: 600; }
 .choix-cookies { display: flex; gap: 10px; flex-shrink: 0; }
-.bouton-contour { background: #fff; color: var(--bleu); border-color: var(--bleu); padding: 11px 22px; }
+.bouton-contour { background: #fff; color: var(--bleu); border-color: var(--bleu); padding: 7px 18px; font-size: .85rem; border-radius: 9px; }
 .bouton-contour:hover { background: var(--bleu); color: #fff; }
 
 /* Document d'archive cliquable et visionneuse plein ecran */
@@ -214,7 +214,7 @@ figcaption a { color: var(--bleu); font-weight: 600; }
 
 @media (max-width: 860px) {
   .grille-explorer { grid-template-columns: 1fr 1fr; }
-  .bandeau-cookies .conteneur { flex-direction: column; align-items: stretch; gap: 14px; }
+  .bandeau-cookies .conteneur { flex-direction: column; align-items: stretch; gap: 8px; }
   .choix-cookies .bouton { flex: 1; }
 }
 @media (max-width: 480px) {
