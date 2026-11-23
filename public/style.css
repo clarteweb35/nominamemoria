@@ -29,7 +29,7 @@ html[lang="en"] [lang="fr"]:not(.choix-langue button) { display: none !important
 .barre .conteneur { display: flex; align-items: center; justify-content: space-between; height: 68px; gap: 12px; }
 .marque { display: flex; align-items: center; gap: 10px; color: #fff; text-decoration: none; font-weight: 700; font-family: Fraunces, Georgia, serif; font-size: 1.1rem; }
 .marque-village { font-family: Inter, sans-serif; font-weight: 500; font-size: .9rem; color: var(--or-clair); }
-.monogramme { width: 38px; height: 38px; border-radius: 10px; background: var(--or-clair); color: var(--nuit); display: inline-flex; align-items: center; justify-content: center; font: 800 .95rem Fraunces, Georgia, serif; flex-shrink: 0; }
+.monogramme { width: 38px; height: 38px; border-radius: 10px; background: var(--or-clair); color: var(--nuit); display: inline-flex; align-items: center; justify-content: center; font: 700 1rem "Cinzel Decorative", Fraunces, Georgia, serif; letter-spacing: -.02em; flex-shrink: 0; }
 .barre-droite { display: flex; align-items: center; gap: 10px; }
 .choix-langue { display: flex; border: 1px solid rgba(255,255,255,.35); border-radius: 999px; overflow: hidden; }
 .choix-langue button { background: none; border: 0; color: #fff; font: 600 .8rem Inter, sans-serif; padding: 7px 12px; cursor: pointer; }
@@ -224,3 +224,4 @@ figcaption a { color: var(--bleu); font-weight: 600; }
 /* Lettrines du grand titre : capitales decorees facon ecriture ancienne */
 .lettrine { font-family: 'Cinzel Decorative', Fraunces, Georgia, serif; font-weight: 700; color: var(--or-clair); font-size: 1.12em; line-height: 0; }
 .titre-programme .lettrine:first-child { margin-left: .14em; }
+.marque .lettrine { font-size: 1.18em; }

@@ -1,6 +1,6 @@
 // Page d'un village (ex. /chaumere/), fabriquee a partir de son fichier villages/<nom>.mjs.
 import { PROGRAMME } from '../programme.mjs';
-import { t, bloc, attr, page, sectionMethode, MONOGRAMME } from './commun.mjs';
+import { t, bloc, attr, page, sectionMethode, MONOGRAMME, nomOrne } from './commun.mjs';
 
 export function pageVillage(v) {
   const racine = '../';
@@ -165,7 +165,7 @@ ${sectionMethode({
     chemin: `${v.slug}/`,
     racine,
     imagePartage: `images/${v.slug}/${v.images.entete}`,
-    marque: `<a href="${racine}" class="marque">${MONOGRAMME}<span>${PROGRAMME.nom} <span class="marque-village">· ${v.nom}</span></span></a>`,
+    marque: `<a href="${racine}" class="marque">${MONOGRAMME}<span>${nomOrne()} <span class="marque-village">· ${v.nom}</span></span></a>`,
     boutonHaut: `<a href="#donner" class="bouton bouton-or bouton-petit">${t({ fr: 'Je soutiens', en: 'Donate' })}</a>`,
     contenu,
     pied,

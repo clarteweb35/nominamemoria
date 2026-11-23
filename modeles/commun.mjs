@@ -114,3 +114,6 @@ ${contenu}
 
 // Logo texte du programme (pas d'image : rien a heberger).
 export const MONOGRAMME = '<span class="monogramme" aria-hidden="true">NM</span>';
+
+// Nom du programme avec la premiere lettre de chaque mot en lettrine (grand titre et barre du haut).
+export const nomOrne = () => PROGRAMME.nom.split(' ').map((mot) => `<span class="lettrine">${mot[0]}</span>${mot.slice(1)}`).join(' ');

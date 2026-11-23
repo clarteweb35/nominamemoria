@@ -1,6 +1,6 @@
 // Page d'accueil du programme : presentation, methode, liste des villages, lancer son village, soutenir.
 import { PROGRAMME } from '../programme.mjs';
-import { t, bloc, attr, page, sectionMethode, MONOGRAMME } from './commun.mjs';
+import { t, bloc, attr, page, sectionMethode, MONOGRAMME, nomOrne } from './commun.mjs';
 
 // Ce qu'il faut pour lancer un village, et ce que le programme apporte.
 const IL_FAUT = [
@@ -26,7 +26,7 @@ export function pageAccueil(villages) {
 <section class="heros heros-programme" style="background-image: linear-gradient(180deg, rgba(15,29,48,.72) 0%, rgba(15,29,48,.85) 60%, rgba(15,29,48,.98) 100%), url('images/${pilote.slug}/${pilote.recit.figure.src}')">
   <div class="conteneur">
     <span class="dates">${t({ fr: 'Un programme pour la mémoire des villages', en: 'A programme for village memory' })}</span>
-    <h1 class="titre-programme">${PROGRAMME.nom.split(" ").map((mot) => `<span class="lettrine">${mot[0]}</span>${mot.slice(1)}`).join(" ")}</h1>
+    <h1 class="titre-programme">${nomOrne()}</h1>
     ${bloc('p', PROGRAMME.accroche, 'sous-titre')}
     ${bloc('p', {
       fr: 'Dans des milliers de villages, quatre siècles de vies dorment dans des registres numérisés que presque personne ne sait plus lire. Nomina Memoria associe l’intelligence artificielle et des bénévoles pour les déchiffrer, les vérifier et les partager, village par village.',
@@ -163,7 +163,7 @@ ${sectionMethode({
     chemin: '',
     racine,
     imagePartage: `images/${pilote.slug}/${pilote.recit.figure.src}`,
-    marque: `<a href="#" class="marque">${MONOGRAMME}<span>${PROGRAMME.nom}</span></a>`,
+    marque: `<a href="#" class="marque">${MONOGRAMME}<span>${nomOrne()}</span></a>`,
     boutonHaut: `<a href="#villages" class="bouton bouton-or bouton-petit">${t({ fr: 'Soutenir', en: 'Support' })}</a>`,
     contenu,
     pied,

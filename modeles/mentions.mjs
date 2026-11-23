@@ -1,6 +1,6 @@
 // Page « Mentions legales et donnees personnelles » (/mentions-legales/), obligatoire pour un site edite en France.
 import { PROGRAMME } from '../programme.mjs';
-import { t, bloc, page, MONOGRAMME } from './commun.mjs';
+import { t, bloc, page, MONOGRAMME, nomOrne } from './commun.mjs';
 
 export function pageMentions(villages) {
   const racine = '../';
@@ -97,7 +97,7 @@ export function pageMentions(villages) {
     chemin: 'mentions-legales/',
     racine,
     imagePartage: '',
-    marque: `<a href="${racine}" class="marque">${MONOGRAMME}<span>${PROGRAMME.nom}</span></a>`,
+    marque: `<a href="${racine}" class="marque">${MONOGRAMME}<span>${nomOrne()}</span></a>`,
     boutonHaut: `<a href="${racine}#villages" class="bouton bouton-or bouton-petit">${t({ fr: 'Soutenir', en: 'Support' })}</a>`,
     contenu,
     pied,
