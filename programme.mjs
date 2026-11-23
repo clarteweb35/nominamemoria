@@ -48,8 +48,8 @@ export const METHODE = [
   {
     titre: { fr: 'Vérifier', en: 'Verify' },
     texte: {
-      fr: 'L’IA se trompe, surtout sur les noms. Chaque acte porte un niveau de confiance et des bénévoles relisent sur l’image d’origine.',
-      en: 'AI makes mistakes, especially with names. Each record carries a confidence level, and volunteers check it against the original image.',
+      fr: 'L’IA se trompe, surtout sur les noms. Chaque acte porte un niveau de confiance et des bénévoles relisent sur l’image d’origine. Ce sont des brouillons : les lecteurs expérimentés sont les bienvenus pour les corriger.',
+      en: 'AI makes mistakes, especially with names. Each record carries a confidence level, and volunteers check it against the original image. These are drafts: experienced readers are welcome to correct them.',
     },
   },
   {
@@ -94,10 +94,17 @@ export const FAQ = [
     },
   },
   {
+    q: { fr: 'L’IA est-elle aussi fiable qu’un généalogiste ou un paléographe ?', en: 'Is AI as reliable as a genealogist or a palaeographer?' },
+    r: {
+      fr: '<strong>Non, et nous ne le prétendons pas.</strong> Des associations de généalogistes et des paléographes déchiffrent les écritures anciennes à l’œil, avec une rigueur que nous admirons. Nous faisons autre chose : l’IA produit en quelques heures des transcriptions brutes de pages qu’il faudrait des mois pour lire à la main. Elles contiennent des erreurs, surtout sur les noms propres et les dates. C’est pourquoi chaque acte porte un niveau de confiance, et pourquoi il faut toujours revenir à l’image d’origine avant de citer un nom. Nos transcriptions sont un point de départ pour la recherche, pas un document faisant foi. En revanche, l’IA excelle à faire des recoupements : elle rapproche des actes, des familles et des noms d’un registre à l’autre, et fait ressortir des liens qu’on ne verrait pas en lisant page à page. Les lecteurs expérimentés sont les bienvenus pour corriger.',
+      en: '<strong>No, and we do not claim otherwise.</strong> Genealogy societies and palaeographers read old handwriting by eye, with a rigour we admire. We do something different: AI produces, in a few hours, rough transcriptions of pages that would take months to read by hand. They contain errors, especially in proper names and dates. That is why each record carries a confidence level, and why you should always check the original image before quoting a name. Our transcriptions are a starting point for research, not an authoritative record. Where AI shines is cross-referencing: it connects records, families and names from one register to the next, and brings out links you would not see reading page by page. Experienced readers are welcome to correct our work.',
+    },
+  },
+  {
     q: { fr: 'Où trouver les registres paroissiaux de mon village ?', en: 'Where can I find the parish registers of my village?' },
     r: {
-      fr: 'En France, les registres paroissiaux et d’état civil anciens sont conservés par les services d’archives départementales, et beaucoup sont numérisés et consultables en ligne gratuitement. Pour Chaumeré, ce sont les Archives départementales d’Ille-et-Vilaine. ThotSync, l’outil développé par l’A3PC, télécharge les archives en ligne d’Ille-et-Vilaine : il est gratuit pour tous les adhérents, il n’est pas nécessaire d’être de Chaumeré.',
-      en: 'In France, old parish and civil registers are kept by the departmental archives, and many are digitised and free to browse online. For Chaumeré, that is the Archives départementales d’Ille-et-Vilaine. ThotSync, the tool developed by A3PC, downloads the online archives of Ille-et-Vilaine: it is free for all members, and you do not need to be from Chaumeré.',
+      fr: 'En France, les registres paroissiaux et d’état civil anciens sont conservés par les services d’archives départementales, et beaucoup sont numérisés et consultables en ligne gratuitement. Pour Chaumeré, ce sont les Archives départementales d’Ille-et-Vilaine. ThotSync, l’outil développé par l’A3PC, télécharge les archives en ligne d’Ille-et-Vilaine : il est gratuit pour tous les adhérents, il n’est pas nécessaire d’être de Chaumeré. Attention : il s’appuie sur le site des archives d’Ille-et-Vilaine et ne fonctionne que tant que son interface ne change pas.',
+      en: 'In France, old parish and civil registers are kept by the departmental archives, and many are digitised and free to browse online. For Chaumeré, that is the Archives départementales d’Ille-et-Vilaine. ThotSync, the tool developed by A3PC, downloads the online archives of Ille-et-Vilaine: it is free for all members, and you do not need to be from Chaumeré. Note that it relies on the Ille-et-Vilaine archives website and only works as long as its interface does not change.',
     },
   },
   {

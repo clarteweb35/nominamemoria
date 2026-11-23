@@ -174,7 +174,7 @@ export default {
       {
         montant: { fr: '10 € / an', en: '€10 / year' },
         titre: { fr: 'Adhérer, où que vous viviez', en: 'Join, wherever you live' },
-        texte: { fr: 'Chaque adhérent compte : plus nous sommes nombreux, plus l’association pèse auprès des Archives, des universités et des partenaires. Les adhérents, où qu’ils vivent, utilisent gratuitement ThotSync, notre outil de téléchargement des archives en ligne d’Ille-et-Vilaine.', en: 'Every member counts: the more we are, the more weight the association carries with archives, universities and partners. Members, wherever they live, can use ThotSync for free, our tool for downloading the online archives of Ille-et-Vilaine.' },
+        texte: { fr: 'Chaque adhérent compte : plus nous sommes nombreux, plus l’association pèse auprès des Archives, des universités et des partenaires. Les adhérents, où qu’ils vivent, utilisent gratuitement ThotSync, notre outil de téléchargement des archives en ligne d’Ille-et-Vilaine (tant que leur site ne change pas d’interface).', en: 'Every member counts: the more we are, the more weight the association carries with archives, universities and partners. Members, wherever they live, can use ThotSync for free, our tool for downloading the online archives of Ille-et-Vilaine (as long as their website keeps its interface).' },
         bouton: { fr: 'Adhérer à l’A3PC', en: 'Join A3PC' },
         lien: HELLOASSO,
       },

@@ -11,7 +11,7 @@ const IL_FAUT = [
 ];
 const ON_APPORTE = (pilote) => [
   { fr: 'La méthode de lecture et de vérification, testée sur le village pilote', en: 'The reading and checking method, tested in the pilot village' },
-  { fr: 'Des outils, comme ThotSync, développé par l’A3PC pour télécharger les archives en ligne d’Ille-et-Vilaine : gratuit pour tous les adhérents, où qu’ils vivent', en: 'Tools, such as ThotSync, developed by A3PC to download the online archives of Ille-et-Vilaine: free for all members, wherever they live' },
+  { fr: 'Des outils, comme ThotSync, développé par l’A3PC pour télécharger les archives en ligne d’Ille-et-Vilaine : gratuit pour tous les adhérents, où qu’ils vivent (tant que le site des archives ne change pas d’interface)', en: 'Tools, such as ThotSync, developed by A3PC to download the online archives of Ille-et-Vilaine: free for all members, wherever they live (as long as the archives website keeps its interface)' },
   { fr: 'Ce modèle de site bilingue, prêt à remplir pour votre village', en: 'This bilingual website template, ready to fill in for your village' },
   { fr: `Le retour d’expérience de ${pilote.nom} : ce qui marche, ce qui coince`, en: `The ${pilote.nom} experience: what works, what doesn’t` },
 ];
