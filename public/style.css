@@ -57,7 +57,14 @@ html[lang="en"] [lang="fr"]:not(.choix-langue button) { display: none !important
 .heros > .conteneur { width: 100%; }
 .heros .titre-programme { font-size: clamp(3rem, 10vw, 6.5rem); max-width: none; letter-spacing: -.01em; margin-bottom: .2em; }
 .heros .sous-titre { font-family: Fraunces, serif; font-size: clamp(1.3rem, 3vw, 2rem); color: var(--or-clair); max-width: 22ch; line-height: 1.25; }
-.credit { position: absolute; right: 20px; bottom: 12px; font-size: .72rem; color: rgba(255,255,255,.55); margin: 0; max-width: 60%; text-align: right; }
+/* Legende du document en fond : dans l'espace libre a droite sur grand ecran, sous les boutons sinon */
+.heros-programme .conteneur { position: relative; }
+.credit { margin-top: 28px; max-width: 420px; padding: 14px 16px; border-left: 3px solid var(--or); background: rgba(15,29,48,.55); border-radius: 0 10px 10px 0; font-size: .85rem; color: #dfe5ee; }
+.credit p { margin: 0 0 4px; }
+.credit-titre { display: block; font-weight: 700; color: var(--or-clair); margin-bottom: 4px; }
+.credit-source { font-size: .78rem; color: #aab3c2; }
+.credit a { color: var(--or-clair); font-weight: 600; font-size: .82rem; }
+@media (min-width: 1080px) { .credit { position: absolute; right: 20px; bottom: 0; width: 270px; margin: 0; } }
 
 /* Chiffres */
 .chiffres { background: var(--nuit); color: #fff; padding: 44px 0; }
@@ -157,7 +164,6 @@ footer a { color: var(--or-clair); }
   .pari .etapes, .dons .grille { grid-template-columns: 1fr; }
   .chiffres .grille { grid-template-columns: repeat(2, 1fr); }
   .barre .bouton-petit, .marque-village { display: none; }
-  .credit { position: static; max-width: none; text-align: left; margin-top: 28px; }
 }
 @media (max-width: 480px) {
   .conteneur { padding: 0 16px; }

@@ -50,7 +50,10 @@ export function page({ titre, description, chemin, racine, imagePartage, marque,
 <meta property="og:description" content="${attr(description)}">
 <meta property="og:url" content="${urlPage}">
 ${urlImage ? `<meta property="og:image" content="${urlImage}">\n<meta name="twitter:card" content="summary_large_image">` : ''}
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f1d30'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='34' font-weight='700' fill='%23f0d9a8' text-anchor='middle'%3ENM%3C/text%3E%3C/svg%3E">
+<!-- Icone NM en Cinzel Decorative (images faites a partir de la police : une icone ne peut pas charger de police web) -->
+<link rel="icon" type="image/png" sizes="32x32" href="${racine}icones/icone-32.png">
+<link rel="icon" type="image/png" sizes="512x512" href="${racine}icones/icone-512.png">
+<link rel="apple-touch-icon" href="${racine}icones/icone-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">

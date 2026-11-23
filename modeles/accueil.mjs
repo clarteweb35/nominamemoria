@@ -40,7 +40,13 @@ export function pageAccueil(villages) {
       <img src="${p.logo}" alt="" width="34" height="34">
       <span>${t({ fr: `Un programme lancé par l’<strong>${p.nom}</strong>, association de Chaumeré (France) · Qui sommes-nous ?`, en: `A programme launched by <strong>${p.nom}</strong>, a non-profit in Chaumeré, France · About us` })}</span>
     </a>
-    <p class="credit">${t({ fr: 'En fond : registre paroissial de Chaumeré, 1609.', en: 'Background: Chaumeré parish register, 1609.' })} ${pilote.recit.figure.source}</p>
+    <!-- Legende du document en fond, dans l'espace libre a droite (sous les boutons sur petit ecran) -->
+    <aside class="credit">
+      <span class="credit-titre">📜 ${t({ fr: 'En arrière-plan', en: 'In the background' })}</span>
+      ${bloc('p', { fr: 'Registre paroissial de Chaumeré, 1609 : baptêmes et visite de l’évêque.', en: 'Chaumeré parish register, 1609: baptisms and the bishop’s visit.' })}
+      <p class="credit-source">${pilote.recit.figure.source}</p>
+      ${pilote.recit.figure.transcription ? `<a href="${pilote.recit.figure.transcription}" target="_blank" rel="noopener">${t({ fr: 'Lire la transcription', en: 'Read the transcription (in French)' })} ↗</a>` : ''}
+    </aside>
   </div>
 </section>
 
