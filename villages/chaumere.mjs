@@ -117,7 +117,7 @@ export default {
         lien: HELLOASSO,
       },
       {
-        montant: { fr: '≈ 20 € / mois', en: '≈ €20 / month' },
+        montant: { fr: 'Dès 20 € / mois', en: 'From €20 / month' },
         titre: { fr: 'Offrir un abonnement d’IA', en: 'Fund an AI subscription' },
         texte: { fr: 'Un abonnement Claude ou ChatGPT, c’est l’outil qui déchiffre des centaines de pages manuscrites. Vous pouvez en prendre un en charge directement pour l’association.', en: 'A Claude or ChatGPT subscription is the tool that deciphers hundreds of handwritten pages. You can cover one directly for the association.' },
         bouton: { fr: 'Proposer', en: 'Offer' },
