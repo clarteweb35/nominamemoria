@@ -6,7 +6,7 @@
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body { margin: 0; font-family: Inter, system-ui, sans-serif; color: var(--texte); background: var(--creme); line-height: 1.65; overflow-x: hidden; }
-img { max-width: 100%; display: block; }
+img { max-width: 100%; height: auto; display: block; }
 a { color: inherit; }
 h1, h2, h3 { font-family: Fraunces, Georgia, serif; line-height: 1.15; margin: 0 0 .6em; }
 h2 { font-size: clamp(1.8rem, 4vw, 2.7rem); }
@@ -54,6 +54,7 @@ html[lang="en"] [lang="fr"]:not(.choix-langue button) { display: none !important
 .heros .accroche { font-size: clamp(1.05rem, 2vw, 1.3rem); max-width: 640px; color: #e9e4d8; }
 .heros .dates { font-family: Fraunces, serif; font-size: 1.1rem; color: var(--or-clair); margin-bottom: 14px; display: block; }
 .heros-programme { align-items: center; }
+.heros > .conteneur { width: 100%; }
 .heros .titre-programme { font-size: clamp(3rem, 10vw, 6.5rem); max-width: none; letter-spacing: -.01em; margin-bottom: .2em; }
 .heros .sous-titre { font-family: Fraunces, serif; font-size: clamp(1.3rem, 3vw, 2rem); color: var(--or-clair); max-width: 22ch; line-height: 1.25; }
 .credit { position: absolute; right: 20px; bottom: 12px; font-size: .72rem; color: rgba(255,255,255,.55); margin: 0; max-width: 60%; text-align: right; }
