@@ -1,23 +1,18 @@
-name: Deployer le site sur GitHub Pages
+name: Mettre en ligne chez OVH
+# Le site est heberge uniquement chez OVH. GitHub range le code et, a chaque envoi sur main,
+# construit le site puis le copie par FTP dans le dossier www de l'hebergement OVH.
 on:
   push:
     branches: [main]
   workflow_dispatch:
 permissions:
   contents: read
-  pages: write
-  id-token: write
 concurrency:
-  group: "pages"
+  group: "ovh"
   cancel-in-progress: false
 jobs:
-  build:
+  envoyer:
     runs-on: ubuntu-latest
-    # Identifiants FTP de l'hebergement OVH, ranges dans Settings > Secrets and variables > Actions (jamais dans le code).
-    env:
-      FTP_SERVEUR: ${{ secrets.FTP_SERVEUR }}
-      FTP_IDENTIFIANT: ${{ secrets.FTP_IDENTIFIANT }}
-      FTP_MOT_DE_PASSE: ${{ secrets.FTP_MOT_DE_PASSE }}
     steps:
       - name: Recuperer le code
         uses: actions/checkout@v4
@@ -27,27 +22,12 @@ jobs:
           node-version: '22'
       - name: Construire le site (et verifier les villages)
         run: node construire.mjs
-      # Copie du site chez OVH (dossier www). Etape sautee tant que les 3 identifiants FTP ne sont pas tous renseignes.
+      # Identifiants FTP ranges dans Settings > Secrets and variables > Actions (jamais dans le code).
       - name: Envoyer le site chez OVH (FTP)
-        if: env.FTP_SERVEUR != '' && env.FTP_IDENTIFIANT != '' && env.FTP_MOT_DE_PASSE != ''
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: ${{ env.FTP_SERVEUR }}
-          username: ${{ env.FTP_IDENTIFIANT }}
-          password: ${{ env.FTP_MOT_DE_PASSE }}
+          server: ${{ secrets.FTP_SERVEUR }}
+          username: ${{ secrets.FTP_IDENTIFIANT }}
+          password: ${{ secrets.FTP_MOT_DE_PASSE }}
           local-dir: ./dist/
           server-dir: ./www/
-      - name: Preparer les fichiers pour Pages
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./dist
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deployer sur GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4

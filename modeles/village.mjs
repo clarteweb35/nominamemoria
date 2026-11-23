@@ -138,8 +138,8 @@ ${sectionMethode({
     </div>`;
 
   return page({
-    titre: `${PROGRAMME.nom} · ${v.nom} — Soutenir / Support`,
-    description: `${v.accroche.fr} / ${v.accroche.en}`.slice(0, 300),
+    titre: `${PROGRAMME.nom} · ${v.nom} — Support / Soutenir`,
+    description: v.accroche.en,
     chemin: `${v.slug}/`,
     racine,
     imagePartage: `images/${v.slug}/${v.images.entete}`,

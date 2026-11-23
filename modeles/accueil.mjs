@@ -158,8 +158,8 @@ ${sectionMethode({
     </div>`;
 
   return page({
-    titre: `${PROGRAMME.nom} — ${PROGRAMME.accroche.fr}`,
-    description: `${PROGRAMME.accroche.fr} ${PROGRAMME.accroche.en} L’IA et des bénévoles font revivre les registres des villages. AI and volunteers bring village registers back to life.`,
+    titre: `${PROGRAMME.nom} — ${PROGRAMME.accroche.en}`,
+    description: `${PROGRAMME.accroche.en} AI and volunteers bring village registers back to life. ${PROGRAMME.accroche.fr}`,
     chemin: '',
     racine,
     imagePartage: `images/${pilote.slug}/${pilote.recit.figure.src}`,

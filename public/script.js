@@ -2,7 +2,7 @@
 (function () {
   var racine = document.documentElement;
 
-  // Langue : ?lang=en dans l'adresse, sinon choix memorise, sinon langue du navigateur (francais par defaut).
+  // Langue : anglais par defaut. ?lang=fr dans l'adresse (liens depuis a3pc.fr) ou choix memorise du visiteur pour le francais.
   function lireChoix() { try { return localStorage.getItem('langue'); } catch (e) { return null; } }
   function appliquer(langue) {
     racine.lang = langue;
@@ -11,8 +11,8 @@
     });
   }
   var parametre = new URLSearchParams(location.search).get('lang');
-  var depart = parametre || lireChoix() || ((navigator.language || 'fr').slice(0, 2) === 'fr' ? 'fr' : 'en');
-  appliquer(depart === 'en' ? 'en' : 'fr');
+  var depart = parametre || lireChoix() || 'en';
+  appliquer(depart === 'fr' ? 'fr' : 'en');
   document.querySelectorAll('.choix-langue button').forEach(function (b) {
     b.addEventListener('click', function () {
       appliquer(b.dataset.langue);

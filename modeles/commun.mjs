@@ -32,13 +32,13 @@ export function sectionMethode(conclusion) {
 /**
  * Page complete.
  * racine : chemin vers la racine du site depuis la page ('' pour l'accueil, '../' pour un village).
- * Les liens sont relatifs : le site marche aussi bien sur github.io/nominamemoria/ que sur son propre domaine.
+ * Les liens sont relatifs : le site marche quel que soit l'endroit ou il est ouvert (OVH, ou dist/ sur l'ordinateur).
  */
 export function page({ titre, description, chemin, racine, imagePartage, marque, boutonHaut, contenu, pied }) {
   const urlPage = PROGRAMME.adresse + chemin;
   const urlImage = imagePartage ? PROGRAMME.adresse + imagePartage : '';
   return `<!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -63,8 +63,8 @@ ${urlImage ? `<meta property="og:image" content="${urlImage}">\n<meta name="twit
     ${marque}
     <div class="barre-droite">
       <div class="choix-langue" role="group" aria-label="Langue / Language">
-        <button type="button" data-langue="fr" lang="fr" aria-pressed="true">FR</button>
-        <button type="button" data-langue="en" lang="en" aria-pressed="false">EN</button>
+        <button type="button" data-langue="fr" lang="fr" aria-pressed="false">FR</button>
+        <button type="button" data-langue="en" lang="en" aria-pressed="true">EN</button>
       </div>
       ${boutonHaut}
     </div>
