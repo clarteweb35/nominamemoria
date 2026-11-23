@@ -6,8 +6,23 @@
 Programme bilingue (français / anglais) qui fait revivre les registres anciens des villages grâce à l'IA et à des bénévoles, et qui cherche des soutiens : donateurs, mécènes, universités, chercheurs. Lancé par l'A3PC (Chaumeré, France), avec **Chaumeré comme village pilote**. Le site est conçu pour être **dupliqué** : un fichier par village.
 
 - Dépôt : https://github.com/clarteweb35/nominamemoria
-- Adresse provisoire : https://clarteweb35.github.io/nominamemoria/
-- Domaine prévu : `nominamemoria.org` (+ `nomina-memoria.eu` en option), à relier (voir plus bas).
+- Adresse principale : **https://nominamemoria.org/** (domaine acheté chez OVH le 23/11/2026), **hébergement OVH gratuit 100 Mo** (en test).
+- Copie de secours : https://clarteweb35.github.io/nominamemoria/ (GitHub Pages, toujours à jour).
+- Domaine optionnel : `nomina-memoria.eu` (non acheté).
+
+## Hébergement OVH : comment ça marche
+
+À chaque envoi sur GitHub (`main`), le déploiement automatique construit le site, le met sur GitHub Pages **et** le copie par FTP dans le dossier `www` de l'hébergement OVH. La copie OVH ne se fait que si les 3 identifiants FTP sont rangés dans GitHub : **Settings › Secrets and variables › Actions › New repository secret** :
+
+| Nom du secret | Valeur (dans l'e-mail d'OVH « hébergement installé ») |
+|---|---|
+| `FTP_SERVEUR` | le serveur FTP, du type `ftp.clusterXXX.hosting.ovh.net` |
+| `FTP_IDENTIFIANT` | l'identifiant FTP |
+| `FTP_MOT_DE_PASSE` | le mot de passe FTP |
+
+Le mot de passe n'est écrit nulle part ailleurs (ni dans le code, ni dans les notes). Côté OVH : la zone DNS est réglée automatiquement par OVH vers l'hébergement ; activer le certificat SSL gratuit (Let's Encrypt) dans Hébergements › Multisite pour avoir le cadenas (https).
+
+Revenir à GitHub Pages plutôt qu'OVH : suivre la section « Relier le domaine » plus bas.
 
 ## Organisation des fichiers
 
@@ -40,7 +55,7 @@ puis ouvrir `dist/index.html` par double-clic.
 
 **Règles** : ne publier que des faits sourcés (comme sur a3pc.fr) ; citer la source des documents d'archives dans la légende (pour l'Ille-et-Vilaine : « Archives départementales d'Ille-et-Vilaine, cote … ») ; ne jamais promettre d'avantage fiscal sans rescrit ; l'argent va à l'association locale du village, pas au programme.
 
-## Relier le domaine nominamemoria.org (une fois acheté chez OVH)
+## Relier le domaine à GitHub Pages au lieu d’OVH (solution de repli)
 
 1. Créer le fichier `public/CNAME` contenant uniquement : `nominamemoria.org`
 2. Dans `programme.mjs`, remplacer `adresse` par `'https://nominamemoria.org/'`.
@@ -54,6 +69,6 @@ puis ouvrir `dist/index.html` par double-clic.
 
 ## Reste à faire / décider
 
-- Acheter et relier `nominamemoria.org` (au nom de l'association A3PC, renouvellement automatique).
+- Tester l’hébergement OVH (secrets FTP à ranger dans GitHub, SSL à activer), vérifier que le titulaire du domaine est l’A3PC et le renouvellement automatique.
 - Pages `/soutenir-chaumere/` et `/support-chaumere/` déjà en ligne sur a3pc.fr : garder, retirer, ou remplacer par un encart renvoyant vers Nomina Memoria (recommandé).
 - Pistes : un mot du président (FR/EN), une vraie campagne de dons HelloAsso dédiée, d'autres villages.

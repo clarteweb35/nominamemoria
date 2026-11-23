@@ -13,6 +13,11 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # Identifiants FTP de l'hebergement OVH, ranges dans Settings > Secrets and variables > Actions (jamais dans le code).
+    env:
+      FTP_SERVEUR: ${{ secrets.FTP_SERVEUR }}
+      FTP_IDENTIFIANT: ${{ secrets.FTP_IDENTIFIANT }}
+      FTP_MOT_DE_PASSE: ${{ secrets.FTP_MOT_DE_PASSE }}
     steps:
       - name: Recuperer le code
         uses: actions/checkout@v4
@@ -22,6 +27,16 @@ jobs:
           node-version: '22'
       - name: Construire le site (et verifier les villages)
         run: node construire.mjs
+      # Copie du site chez OVH (dossier www). Etape sautee tant que les identifiants FTP ne sont pas renseignes.
+      - name: Envoyer le site chez OVH (FTP)
+        if: env.FTP_SERVEUR != ''
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ env.FTP_SERVEUR }}
+          username: ${{ env.FTP_IDENTIFIANT }}
+          password: ${{ env.FTP_MOT_DE_PASSE }}
+          local-dir: ./dist/
+          server-dir: ./www/
       - name: Preparer les fichiers pour Pages
         uses: actions/upload-pages-artifact@v3
         with:

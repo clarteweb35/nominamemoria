@@ -4,8 +4,8 @@
 export const PROGRAMME = {
   nom: 'Nomina Memoria',
   // Adresse publique du site, utilisee pour les images de partage (reseaux sociaux).
-  // A remplacer par 'https://nominamemoria.org/' une fois le domaine relie.
-  adresse: 'https://clarteweb35.github.io/nominamemoria/',
+  // Le site est heberge chez OVH (copie de secours sur clarteweb35.github.io/nominamemoria/).
+  adresse: 'https://nominamemoria.org/',
   accroche: {
     fr: 'Rendre leur nom aux oubliés, un village après l’autre.',
     en: 'Giving forgotten people their names back, one village at a time.',
