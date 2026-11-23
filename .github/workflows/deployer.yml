@@ -27,9 +27,9 @@ jobs:
           node-version: '22'
       - name: Construire le site (et verifier les villages)
         run: node construire.mjs
-      # Copie du site chez OVH (dossier www). Etape sautee tant que les identifiants FTP ne sont pas renseignes.
+      # Copie du site chez OVH (dossier www). Etape sautee tant que les 3 identifiants FTP ne sont pas tous renseignes.
       - name: Envoyer le site chez OVH (FTP)
-        if: env.FTP_SERVEUR != ''
+        if: env.FTP_SERVEUR != '' && env.FTP_IDENTIFIANT != '' && env.FTP_MOT_DE_PASSE != ''
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ env.FTP_SERVEUR }}
