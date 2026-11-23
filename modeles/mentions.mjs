@@ -94,6 +94,7 @@ export function pageMentions(villages) {
   return page({
     titre: `${PROGRAMME.nom} — ${t({ fr: 'Mentions légales', en: 'Legal notice' })}`,
     description: t({ fr: 'Mentions légales, données personnelles et cookies du site Nomina Memoria.', en: 'Legal notice, privacy and cookies of the Nomina Memoria website.' }),
+    nomFil: t({ fr: 'Mentions légales', en: 'Legal notice' }),
     chemin: 'mentions-legales/',
     racine,
     imagePartage: '',

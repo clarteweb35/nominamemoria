@@ -38,10 +38,13 @@ Aucun autre enregistrement A, AAAA ou CNAME pour `nominamemoria.org` et `www` (s
 | `images/<nom>/` | Les photos du village. |
 | `modeles/` | La mise en page : `accueil.mjs` (page du programme), `village.mjs` (page d'un village), `commun.mjs` (en-tête, langue, pied de page). Les modèles écrivent un texte `{ fr, en }` avec `t()` / `bloc()` dans la langue en cours ; `construire.mjs` rend chaque page une fois par langue. Aucun texte propre à un village dans l'accueil : il vient du fichier du village pilote. |
 | `public/` | `style.css` (couleurs et mise en page), `script.js` (choix de langue, liens e-mail, cookies, animations), `CNAME` (le domaine). |
-| `construire.mjs` | Fabrique le site dans `dist/` (une version par langue), vérifie les villages, écrit `sitemap.xml` et `robots.txt`, puis contrôle le HTML produit. |
+| `construire.mjs` | Fabrique le site dans `dist/` (une version par langue), vérifie les villages, écrit `sitemap.xml`, puis contrôle le HTML produit. |
+| `referencement.mjs` | Écrit `robots.txt` (moteurs de recherche et assistants IA expressément autorisés) et `llms.txt` (présentation du site pour les IA, avec les questions fréquentes). |
 | `.github/workflows/deployer.yml` | À chaque envoi sur GitHub (`main`), le site est reconstruit et publié sur GitHub Pages tout seul. |
 
-Pages produites, en anglais puis en français sous `/fr/` : `/` (accueil du programme), `/<nom>/` pour chaque village (ex. `/chaumere/`), `/a-propos/`, `/mentions-legales/`. Les pages portent aussi des données structurées (schema.org `NGO`) pour les moteurs de recherche.
+Pages produites, en anglais puis en français sous `/fr/` : `/` (accueil du programme), `/<nom>/` pour chaque village (ex. `/chaumere/`), `/a-propos/`, `/mentions-legales/`. Chaque page porte des données structurées schema.org (`NGO`, `WebSite`, `WebPage` avec `dateModified`, fil d'Ariane, `FAQPage`) pour les moteurs de recherche et les IA, et une mention « Mis à jour le » en pied de page (date de la dernière construction).
+
+**Référencement et IA** : titres et descriptions des pages (`SEO` dans `programme.mjs`, `seo` dans le fichier du village ; description de 160 caractères au maximum, le build refuse sinon) ; **questions fréquentes** (`FAQ` dans `programme.mjs` pour l'accueil, `faq` dans le fichier du village), affichées en section dépliable et déclarées en `FAQPage` : chaque question existe en `fr` et `en`, les réponses doivent rester des faits sourcés. Pour exclure un robot IA, changer `Allow` en `Disallow` dans `referencement.mjs`.
 
 **Contrôles de `node construire.mjs`** (refus de construire ou échec, avec le détail) : champs obligatoires, deux langues partout, un seul village `pilote: true` au plus, slugs uniques et non réservés, toute image citée dans le fichier d'un village (frise, cartes, etc.) présente dans `images/<nom>/`, toute adresse externe en `https://` et valide, fichiers communs présents ; puis, dans le HTML produit, chaque lien interne, chaque ressource et chaque ancre (`#donner`…) doit exister, sans identifiant en double. Les liens externes ne sont pas testés en ligne.
 

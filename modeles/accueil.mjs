@@ -1,6 +1,6 @@
 // Page d'accueil du programme : presentation, methode, liste des villages, lancer son village, soutenir.
-import { PROGRAMME } from '../programme.mjs';
-import { t, tx, bloc, attr, page, sectionMethode, MONOGRAMME, nomOrne, racineDe, lien } from './commun.mjs';
+import { PROGRAMME, SEO, FAQ } from '../programme.mjs';
+import { t, tx, bloc, attr, page, sectionFaq, donneesFaq, sectionMethode, MONOGRAMME, nomOrne, racineDe, lien } from './commun.mjs';
 
 // Ce qu'il faut pour lancer un village, et ce que le programme apporte.
 const IL_FAUT = [
@@ -147,6 +147,8 @@ ${sectionMethode({
   </div>
 </section>
 
+${sectionFaq(FAQ, { surtitre: { fr: 'Questions fréquentes', en: 'Frequently asked questions' }, titre: { fr: 'Tout savoir sur Nomina Memoria', en: 'Everything about Nomina Memoria' } })}
+
 <!-- ============ APPEL FINAL ============ -->
 <section class="final" style="background-image: linear-gradient(180deg, rgba(15,29,48,.88), rgba(15,29,48,.96)), url('${racine}images/${pilote.slug}/${pilote.images.final}')">
   <div class="conteneur etroit">
@@ -170,24 +172,13 @@ ${sectionMethode({
     </div>`;
 
   return page({
-    titre: `${PROGRAMME.nom} — ${tx(PROGRAMME.accroche)}`,
-    description: t({
-      fr: `${PROGRAMME.accroche.fr} L’IA et des bénévoles redonnent vie aux registres des villages.`,
-      en: `${PROGRAMME.accroche.en} AI and volunteers bring village registers back to life.`,
-    }),
+    titre: tx(SEO.accueil.titre),
+    description: tx(SEO.accueil.description).replace('{village}', pilote.nom),
     chemin: '',
     racine,
     imagePartage: `images/${pilote.slug}/${pilote.recit.figure.src}`,
-    donnees: {
-      '@context': 'https://schema.org',
-      '@type': 'NGO',
-      name: p.nomComplet,
-      alternateName: p.nom,
-      url: p.site,
-      logo: PROGRAMME.adresse + p.logo,
-      address: { '@type': 'PostalAddress', streetAddress: p.siege, addressCountry: 'FR' },
-      owns: { '@type': 'WebSite', name: PROGRAMME.nom, url: PROGRAMME.adresse, inLanguage: ['en', 'fr'] },
-    },
+    imageAlt: tx(pilote.recit.figure.alt),
+    donnees: [donneesFaq(FAQ)],
     marque: `<a href="${L}" class="marque">${MONOGRAMME}<span>${nomOrne()}</span></a>`,
     boutonHaut: `<a href="#villages" class="bouton bouton-or bouton-petit">${t({ fr: 'Soutenir', en: 'Support' })}</a>`,
     contenu,

@@ -30,6 +30,55 @@ export const lien = (racine, chemin = '') => (racine + (ctx.lang === 'fr' ? 'fr/
 // Protege un texte place dans un attribut HTML (alt, title...).
 export const attr = (texte) => String(texte).replace(/&/g, '&amp;').replace(/"/g, '&quot;');
 
+// Date de fabrication du site (AAAA-MM-JJ) : « derniere mise a jour » affichee en pied de page et declaree aux moteurs.
+export const DATE_MAJ = new Date().toISOString().slice(0, 10);
+
+// Texte sans balises HTML (pour les donnees structurees et llms.txt).
+export const texteBrut = (html) => String(html).replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
+
+// Section « questions frequentes » : chaque question se deplie (details/summary, sans script).
+// Le texte de la reponse est dans le HTML, donc lisible par les moteurs de recherche et les IA.
+export function sectionFaq(questions, { surtitre, titre }) {
+  return `
+<!-- ============ QUESTIONS FREQUENTES ============ -->
+<section class="faq" id="faq">
+  <div class="conteneur etroit">
+    <span class="surtitre">${t(surtitre)}</span>
+    ${bloc('h2', titre)}
+    <div class="faq-liste">
+      ${questions.map((x) => `<details class="apparait"><summary>${t(x.q)}</summary><div class="faq-reponse">${bloc('p', x.r)}</div></details>`).join('\n      ')}
+    </div>
+  </div>
+</section>`;
+}
+
+// Donnees structurees schema.org « FAQPage » correspondant aux questions affichees.
+export const donneesFaq = (questions) => ({
+  '@type': 'FAQPage',
+  inLanguage: ctx.lang,
+  mainEntity: questions.map((x) => ({
+    '@type': 'Question',
+    name: texteBrut(t(x.q)),
+    acceptedAnswer: { '@type': 'Answer', text: texteBrut(t(x.r)) },
+  })),
+});
+
+// Association qui porte le programme, decrite pour les moteurs de recherche et les IA (schema.org « NGO »).
+const noeudPorteur = () => {
+  const p = PROGRAMME.porteur;
+  return {
+    '@type': 'NGO',
+    '@id': `${p.site}#association`,
+    name: p.nomComplet,
+    alternateName: p.nom,
+    url: p.site,
+    logo: PROGRAMME.adresse + p.logo,
+    address: { '@type': 'PostalAddress', streetAddress: p.siege, addressCountry: 'FR' },
+    identifier: { '@type': 'PropertyValue', propertyID: 'RNA', value: p.rna },
+    sameAs: [p.pageAssociation],
+  };
+};
+
 // Section « la methode », identique sur toutes les pages.
 export function sectionMethode(conclusion) {
   return `
@@ -51,7 +100,7 @@ export function sectionMethode(conclusion) {
  * racine : chemin vers la racine du site depuis la page ('' pour l'accueil, '../' pour un village).
  * Les liens sont relatifs : le site marche quel que soit l'endroit ou il est ouvert (OVH, ou dist/ sur l'ordinateur).
  */
-export function page({ titre, description, chemin, racine, imagePartage, marque, boutonHaut, contenu, pied, donnees }) {
+export function page({ titre, description, chemin, racine, imagePartage, imageAlt, nomFil, aPropos, marque, boutonHaut, contenu, pied, donnees = [] }) {
   const lang = ctx.lang;
   const autre = lang === 'fr' ? 'en' : 'fr';
   const prefixe = (l) => (l === 'fr' ? 'fr/' : '');
@@ -59,6 +108,37 @@ export function page({ titre, description, chemin, racine, imagePartage, marque,
   const urlLangue = (l) => PROGRAMME.adresse + prefixe(l) + chemin;
   const hrefLangue = (l) => (racine + prefixe(l) + chemin) || './';
   const urlImage = imagePartage ? PROGRAMME.adresse + imagePartage : '';
+  // Donnees structurees : l'association, le site, la page (avec sa date de mise a jour et son fil d'Ariane), puis ce que la page ajoute.
+  const urlAccueil = PROGRAMME.adresse + prefixe(lang);
+  const graphe = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      noeudPorteur(),
+      { '@type': 'WebSite', '@id': `${PROGRAMME.adresse}#site`, name: PROGRAMME.nom, url: PROGRAMME.adresse, inLanguage: ['en', 'fr'], publisher: { '@id': `${PROGRAMME.porteur.site}#association` } },
+      {
+        '@type': 'WebPage',
+        '@id': `${urlPage}#page`,
+        url: urlPage,
+        name: titre,
+        description,
+        inLanguage: lang,
+        dateModified: DATE_MAJ,
+        isPartOf: { '@id': `${PROGRAMME.adresse}#site` },
+        ...(urlImage ? { primaryImageOfPage: urlImage } : {}),
+        ...(aPropos ? { about: aPropos } : {}),
+        ...(chemin ? { breadcrumb: { '@id': `${urlPage}#fil` } } : {}),
+      },
+      ...(chemin ? [{
+        '@type': 'BreadcrumbList',
+        '@id': `${urlPage}#fil`,
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: PROGRAMME.nom, item: urlAccueil },
+          { '@type': 'ListItem', position: 2, name: nomFil || titre, item: urlPage },
+        ],
+      }] : []),
+      ...donnees,
+    ],
+  };
   return `<!DOCTYPE html>
 <html lang="${lang}">
 <head>
@@ -77,7 +157,7 @@ export function page({ titre, description, chemin, racine, imagePartage, marque,
 <meta property="og:title" content="${attr(titre)}">
 <meta property="og:description" content="${attr(description)}">
 <meta property="og:url" content="${urlPage}">
-${urlImage ? `<meta property="og:image" content="${urlImage}">\n<meta name="twitter:card" content="summary_large_image">` : ''}
+${urlImage ? `<meta property="og:image" content="${urlImage}">\n<meta property="og:image:alt" content="${attr(imageAlt || titre)}">\n<meta name="twitter:card" content="summary_large_image">` : ''}
 <!-- Icone NM en Cinzel Decorative (images faites a partir de la police : une icone ne peut pas charger de police web) -->
 <link rel="icon" type="image/png" sizes="32x32" href="${racine}icones/icone-32.png">
 <link rel="icon" type="image/png" sizes="512x512" href="${racine}icones/icone-512.png">
@@ -87,8 +167,8 @@ ${urlImage ? `<meta property="og:image" content="${urlImage}">\n<meta name="twit
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <!-- Lettrines N et M du titre (Cinzel Decorative) : seules ces deux lettres sont telechargees -->
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&text=NM&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="${racine}style.css">${donnees ? `
-<script type="application/ld+json">${JSON.stringify(donnees).replace(/</g, '\u003c')}</script>` : ''}
+<link rel="stylesheet" href="${racine}style.css">
+<script type="application/ld+json">${JSON.stringify(graphe).replace(/</g, '\\u003c')}</script>
 </head>
 <body data-gtm="${PROGRAMME.idGoogleTagManager}">
 
@@ -112,7 +192,8 @@ ${contenu}
   <div class="conteneur pied-legal">
     <a href="${lien(racine)}a-propos/">${t({ fr: 'Qui sommes-nous ?', en: 'About us' })}</a> ·
     <a href="${lien(racine)}mentions-legales/">${t({ fr: 'Mentions légales et données personnelles', en: 'Legal notice and privacy' })}</a> ·
-    <button type="button" class="lien-cookies" data-ouvrir-cookies>${t({ fr: 'Cookies', en: 'Cookie settings' })}</button>
+    <button type="button" class="lien-cookies" data-ouvrir-cookies>${t({ fr: 'Cookies', en: 'Cookie settings' })}</button> ·
+    <span>${t({ fr: 'Mis à jour le', en: 'Last updated' })} <time datetime="${DATE_MAJ}">${new Date(DATE_MAJ).toLocaleDateString(lang === 'fr' ? 'fr-FR' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })}</time></span>
   </div>
 </footer>
 

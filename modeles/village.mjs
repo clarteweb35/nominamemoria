@@ -1,6 +1,6 @@
 // Page d'un village (ex. /chaumere/), fabriquee a partir de son fichier villages/<nom>.mjs.
 import { PROGRAMME } from '../programme.mjs';
-import { t, tx, bloc, attr, page, sectionMethode, MONOGRAMME, nomOrne, racineDe, lien } from './commun.mjs';
+import { t, tx, bloc, attr, page, sectionFaq, donneesFaq, sectionMethode, MONOGRAMME, nomOrne, racineDe, lien } from './commun.mjs';
 
 export function pageVillage(v) {
   const racine = racineDe(1);
@@ -144,6 +144,8 @@ ${sectionMethode({
   </div>
 </section>
 
+${v.faq ? sectionFaq(v.faq, { surtitre: { fr: 'Questions fréquentes', en: 'Frequently asked questions' }, titre: { fr: `Tout savoir sur ${v.nom}`, en: `Everything about ${v.nom}` } }) : ''}
+
 <!-- ============ APPEL FINAL ============ -->
 <section class="final" style="background-image: linear-gradient(180deg, rgba(15,29,48,.88), rgba(15,29,48,.96)), url('${img(v.images.final)}')">
   <div class="conteneur etroit">
@@ -172,18 +174,15 @@ ${sectionMethode({
     </div>`;
 
   return page({
-    titre: `${PROGRAMME.nom} · ${v.nom} — ${t({ fr: 'Soutenir', en: 'Support' })}`,
-    description: tx(v.accroche),
-    donnees: {
-      '@context': 'https://schema.org',
-      '@type': 'NGO',
-      name: a.nom,
-      alternateName: a.sigle,
-      url: a.site,
-      logo: `${PROGRAMME.adresse}images/${v.slug}/${a.logo}`,
-      address: { '@type': 'PostalAddress', streetAddress: a.adresse, addressCountry: 'FR' },
-      description: tx(v.resume),
-    },
+    titre: v.seo ? tx(v.seo.titre) : `${PROGRAMME.nom} · ${v.nom} — ${t({ fr: 'Soutenir', en: 'Support' })}`,
+    description: v.seo ? tx(v.seo.description) : tx(v.accroche),
+    nomFil: v.nom,
+    imageAlt: tx(v.recit.figure.alt),
+    aPropos: { '@type': 'Place', name: v.nom, description: tx(v.lieu) },
+    donnees: [
+      ...(a.site !== PROGRAMME.porteur.site ? [{ '@type': 'NGO', '@id': `${a.site}#association`, name: a.nom, alternateName: a.sigle, url: a.site, logo: `${PROGRAMME.adresse}images/${v.slug}/${a.logo}`, address: { '@type': 'PostalAddress', streetAddress: a.adresse, addressCountry: 'FR' } }] : []),
+      ...(v.faq ? [donneesFaq(v.faq)] : []),
+    ],
     chemin: `${v.slug}/`,
     racine,
     imagePartage: `images/${v.slug}/${v.images.entete}`,

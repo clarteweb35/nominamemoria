@@ -89,6 +89,7 @@ export function pageAPropos(villages) {
       en: `Nomina Memoria is a programme run by ${p.nom}, a French non-profit in ${p.commune} (Brittany). Who we are and where your gift goes.`,
     }),
     chemin: 'a-propos/',
+    nomFil: t({ fr: 'Qui sommes-nous', en: 'About us' }),
     racine,
     imagePartage: '',
     marque: `<a href="${lien(racine)}" class="marque">${MONOGRAMME}<span>${nomOrne()}</span></a>`,

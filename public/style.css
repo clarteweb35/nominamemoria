@@ -255,3 +255,15 @@ figcaption a { color: var(--bleu); font-weight: 600; }
   .confiance { flex-direction: column; align-items: flex-start; }
   .carte-porteur { flex-direction: column; align-items: flex-start; }
 }
+
+/* Questions frequentes (details/summary : fonctionne sans script) */
+.faq { background: #fff; }
+.faq-liste { margin-top: 32px; display: grid; gap: 12px; }
+.faq details { background: var(--creme); border: 1px solid var(--bord); border-radius: 14px; }
+.faq summary { cursor: pointer; list-style: none; padding: 18px 56px 18px 22px; font-weight: 600; color: var(--bleu); position: relative; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; position: absolute; right: 22px; top: 50%; transform: translateY(-50%); font-size: 1.5rem; font-weight: 400; color: var(--or); }
+.faq details[open] summary::after { content: "−"; }
+.faq summary:focus-visible { outline: 3px solid var(--or); outline-offset: 2px; border-radius: 14px; }
+.faq-reponse { padding: 0 22px 18px; }
+.faq-reponse p { margin: 0; color: var(--doux); }

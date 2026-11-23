@@ -205,6 +205,57 @@ export default {
     { fr: 'Pour tout savoir sur l’association, ses fêtes de village et son bureau : <a href="https://a3pc.fr/association/" target="_blank" rel="noopener"><strong>en voir plus sur a3pc.fr</strong></a>.', en: 'To learn more about the association, its village events and its board: <a href="https://a3pc.fr/association/" target="_blank" rel="noopener"><strong>see more on a3pc.fr</strong></a> (in French).' },
   ],
 
+  // Referencement : titre et description de la page (description : 160 caracteres au maximum).
+  seo: {
+    titre: {
+      fr: 'Chaumeré (Bretagne) : registres paroissiaux depuis 1602 | Nomina Memoria',
+      en: 'Chaumeré, Brittany: parish registers since 1602 | Nomina Memoria',
+    },
+    description: {
+      fr: 'Registres de Chaumeré (Bretagne) depuis 1602 : l’IA et des bénévoles déchiffrent quatre siècles de baptêmes, mariages et sépultures. Soutenez le projet.',
+      en: 'Parish registers of Chaumeré, Brittany, since 1602: AI and volunteers decipher four centuries of baptisms, weddings and burials. Support the project.',
+    },
+  },
+
+  // Questions frequentes du village (affichees sur la page et declarees aux moteurs de recherche et aux IA).
+  faq: [
+    {
+      q: { fr: 'Où se trouve Chaumeré ?', en: 'Where is Chaumeré?' },
+      r: {
+        fr: 'Chaumeré est une ancienne paroisse bretonne, puis commune pendant près de deux siècles, en Ille-et-Vilaine (35). Depuis le 1ᵉʳ janvier 1974, elle est associée à sa voisine Domagné (code postal 35113).',
+        en: 'Chaumeré is a former Breton parish, then a municipality for nearly two centuries, in Ille-et-Vilaine (35), France. Since 1 January 1974 it has been merged with its neighbour Domagné (postcode 35113).',
+      },
+    },
+    {
+      q: { fr: 'Depuis quand existent les registres de Chaumeré, et combien sont déchiffrés ?', en: 'How old are the Chaumeré registers, and how many are deciphered?' },
+      r: {
+        fr: 'Le plus ancien registre conservé date de 1602. 1 191 documents ont été repérés aux Archives départementales d’Ille-et-Vilaine, et plus de 150 registres et documents sont déjà déchiffrés.',
+        en: 'The oldest surviving register dates from 1602. 1,191 documents have been found in the Archives départementales d’Ille-et-Vilaine, and over 150 registers and documents are already deciphered.',
+      },
+    },
+    {
+      q: { fr: 'Comment chercher un ancêtre de Chaumeré ?', en: 'How do I look for an ancestor from Chaumeré?' },
+      r: {
+        fr: 'La recherche de noms et les actes déjà transcrits sont en ligne, gratuitement, sur le site de l’A3PC : voir la section « Explorez les archives déjà transcrites » de cette page.',
+        en: 'Name search and the records already transcribed are online, free of charge, on the A3PC website: see the “Explore the records already transcribed” section of this page (the records are in French).',
+      },
+    },
+    {
+      q: { fr: 'À quoi sert un don pour Chaumeré ?', en: 'What does a gift to the Chaumeré project pay for?' },
+      r: {
+        fr: 'L’A3PC est une toute jeune association de bénévoles : ce que vous donnez sert directement aux recherches, c’est-à-dire au matériel et aux outils (un abonnement d’IA, un ordinateur). Vous pouvez aussi adhérer pour 10 € par an, où que vous viviez.',
+        en: 'A3PC is a brand-new, volunteer-run association: what you give goes straight into the research, meaning equipment and tools (an AI subscription, a computer). You can also join for €10 a year, wherever you live.',
+      },
+    },
+    {
+      q: { fr: 'Un don à l’A3PC est-il déductible des impôts ?', en: 'Is a gift to A3PC tax-deductible?' },
+      r: {
+        fr: 'Pas à ce stade : une demande de rescrit mécénat est en préparation. Aucun reçu fiscal ni avantage fiscal n’est garanti, en France comme à l’étranger.',
+        en: 'Not at this stage: a request for a tax-deductibility ruling is being prepared. No tax receipt or tax benefit can be promised, in France or abroad. A3PC is not a US 501(c)(3) organisation.',
+      },
+    },
+  ],
+
   final: {
     titre: { fr: 'Ils ont vécu, aimé, travaillé ici. Aidez-nous à ne pas les oublier.', en: 'They lived, loved and worked here. Help us remember them.' },
     texte: { fr: 'Un don, un ordinateur, un abonnement, une heure de relecture : tout compte.', en: 'A gift, a computer, a subscription, an hour of proofreading: it all counts. You are welcome to write to us in English.' },

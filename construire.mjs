@@ -5,11 +5,12 @@
 import { readdir, readFile, mkdir, writeFile, cp, rm, access } from 'node:fs/promises';
 import { join, dirname } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { PROGRAMME } from './programme.mjs';
-import { LANGUES, contexte } from './modeles/commun.mjs';
+import { PROGRAMME, SEO } from './programme.mjs';
+import { LANGUES, contexte, DATE_MAJ } from './modeles/commun.mjs';
 import { pageAccueil } from './modeles/accueil.mjs';
 import { pageVillage } from './modeles/village.mjs';
 import { pageMentions } from './modeles/mentions.mjs';
+import { ecrireReferencement } from './referencement.mjs';
 import { pageAPropos } from './modeles/apropos.mjs';
 
 const SORTIE = 'dist';
@@ -68,6 +69,13 @@ for (const v of villages) {
   await verifierValeurs(v, 'village', v, nom);
   verifierLangues(v, 'village', nom);
 }
+// Referencement : une description de plus de 160 caracteres est tronquee par Google
+const LONGUEUR_MAX_DESCRIPTION = 160;
+for (const lang of LANGUES) {
+  const longueur = (d) => d.replace('{village}', villages[0]?.nom ?? '').length;
+  if (longueur(SEO.accueil.description[lang]) > LONGUEUR_MAX_DESCRIPTION) erreurs.push(`programme.mjs : la description de l'accueil (${lang}) dépasse ${LONGUEUR_MAX_DESCRIPTION} caractères.`);
+  for (const v of villages) if (v.seo && v.seo.description[lang].length > LONGUEUR_MAX_DESCRIPTION) erreurs.push(`${v.nom} : la description « seo » (${lang}) dépasse ${LONGUEUR_MAX_DESCRIPTION} caractères (${v.seo.description[lang].length}).`);
+}
 // Fichiers communs que les pages reclament
 for (const fichier of [PROGRAMME.porteur.logo, 'public/icones/icone-32.png', 'public/icones/icone-180.png', 'public/icones/icone-512.png', 'public/style.css', 'public/script.js', 'public/CNAME']) {
   if (!(await existe(fichier))) erreurs.push(`Fichier commun introuvable : ${fichier}`);
@@ -107,6 +115,7 @@ const urlDe = (lang, chemin) => `${PROGRAMME.adresse}${lang === 'fr' ? 'fr/' : '
 const entrees = PAGES.flatMap((p) => LANGUES.map((lang) => [
   '  <url>',
   `    <loc>${urlDe(lang, p.chemin)}</loc>`,
+  `    <lastmod>${DATE_MAJ}</lastmod>`,
   ...LANGUES.map((l) => `    <xhtml:link rel="alternate" hreflang="${l}" href="${urlDe(l, p.chemin)}"/>`),
   `    <xhtml:link rel="alternate" hreflang="x-default" href="${urlDe('en', p.chemin)}"/>`,
   '  </url>',
@@ -117,7 +126,7 @@ ${entrees.join('\n')}
 </urlset>
 `;
 await writeFile(`${SORTIE}/sitemap.xml`, sitemap);
-await writeFile(`${SORTIE}/robots.txt`, `User-agent: *\nAllow: /\n\nSitemap: ${PROGRAMME.adresse}sitemap.xml\n`);
+await ecrireReferencement({ sortie: SORTIE, villages, urlDe });
 
 // 5. Controler le HTML produit : chaque lien interne, chaque ressource et chaque ancre doivent exister
 const problemes = [];
