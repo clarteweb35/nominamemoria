@@ -96,8 +96,8 @@ export const FAQ = [
   {
     q: { fr: 'Où trouver les registres paroissiaux de mon village ?', en: 'Where can I find the parish registers of my village?' },
     r: {
-      fr: 'En France, les registres paroissiaux et d’état civil anciens sont conservés par les services d’archives départementales, et beaucoup sont numérisés et consultables en ligne gratuitement. Pour Chaumeré, ce sont les Archives départementales d’Ille-et-Vilaine. Notre outil ThotSync permet de télécharger les archives en ligne d’Ille-et-Vilaine.',
-      en: 'In France, old parish and civil registers are kept by the departmental archives, and many are digitised and free to browse online. For Chaumeré, that is the Archives départementales d’Ille-et-Vilaine. Our tool ThotSync downloads the online archives of Ille-et-Vilaine.',
+      fr: 'En France, les registres paroissiaux et d’état civil anciens sont conservés par les services d’archives départementales, et beaucoup sont numérisés et consultables en ligne gratuitement. Pour Chaumeré, ce sont les Archives départementales d’Ille-et-Vilaine. ThotSync, l’outil développé par l’A3PC, télécharge les archives en ligne d’Ille-et-Vilaine : il est gratuit pour tous les adhérents, il n’est pas nécessaire d’être de Chaumeré.',
+      en: 'In France, old parish and civil registers are kept by the departmental archives, and many are digitised and free to browse online. For Chaumeré, that is the Archives départementales d’Ille-et-Vilaine. ThotSync, the tool developed by A3PC, downloads the online archives of Ille-et-Vilaine: it is free for all members, and you do not need to be from Chaumeré.',
     },
   },
   {
