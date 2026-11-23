@@ -44,8 +44,11 @@ export function pageVillage(v) {
       ${v.recit.apres.map((p) => bloc('p', p)).join('\n      ')}
     </div>
     <figure class="apparait">
-      <img src="${img(v.recit.figure.src)}" width="${v.recit.figure.largeur}" height="${v.recit.figure.hauteur}" loading="lazy" alt="${attr(v.recit.figure.alt.fr + ' / ' + v.recit.figure.alt.en)}">
-      <figcaption>${t(v.recit.figure.legende)} ${v.recit.figure.source}</figcaption>
+      <a href="${img(v.recit.figure.src)}" class="agrandir" data-agrandir title="${attr('Voir en grand / View full size')}">
+        <img src="${img(v.recit.figure.src)}" width="${v.recit.figure.largeur}" height="${v.recit.figure.hauteur}" loading="lazy" alt="${attr(v.recit.figure.alt.fr + ' / ' + v.recit.figure.alt.en)}">
+        <span class="loupe" aria-hidden="true">⤢ ${t({ fr: 'Voir en grand', en: 'View full size' })}</span>
+      </a>
+      <figcaption>${t(v.recit.figure.legende)} ${v.recit.figure.source}${v.recit.figure.transcription ? ` <a href="${v.recit.figure.transcription}" target="_blank" rel="noopener">${t({ fr: 'Lire la transcription', en: 'Read the transcription (in French)' })} ↗</a>` : ''}</figcaption>
     </figure>
   </div>
 </section>
@@ -60,6 +63,25 @@ export function pageVillage(v) {
     </ol>
   </div>
 </section>
+
+${v.explorer ? `
+<!-- ============ EXPLORER LES ARCHIVES (liens vers le site de l'association) ============ -->
+<section class="explorer">
+  <div class="conteneur">
+    <span class="surtitre">${t(v.explorer.surtitre)}</span>
+    ${bloc('h2', v.explorer.titre)}
+    ${bloc('p', v.explorer.intro, 'intro')}
+    <div class="grille-explorer">
+      ${v.explorer.liens.map((l) => `
+      <a class="carte-lien apparait" href="${l.href}" target="_blank" rel="noopener">
+        <span class="carte-lien-icone" aria-hidden="true">${l.icone}</span>
+        <h3>${t(l.titre)}</h3>
+        ${bloc('p', l.texte)}
+        <span class="lien-fleche">${t({ fr: 'Ouvrir sur ' + a.sigle, en: 'Open on ' + a.sigle + ' (in French)' })} ↗</span>
+      </a>`).join('')}
+    </div>
+  </div>
+</section>` : ''}
 
 ${sectionMethode({
     fr: `<strong>Ce que nous prouvons à ${v.nom} peut servir partout.</strong> Des milliers de villages ont des archives numérisées que personne ne lit. Si une petite association y arrive avec quelques ordinateurs et un abonnement d’IA, n’importe quel village le peut. <a href="${racine}#lancer">Lancer votre village</a>.`,

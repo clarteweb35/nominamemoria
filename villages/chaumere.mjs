@@ -84,7 +84,45 @@ export default {
       },
       // Mention obligatoire pour les documents des Archives departementales d'Ille-et-Vilaine.
       source: 'Archives départementales d’Ille-et-Vilaine, 10 NUM 35074/1.',
+      // Page de la transcription de ce registre sur le site de l'association (facultatif).
+      transcription: 'https://a3pc.fr/archives/registre-1602/',
     },
+  },
+
+  // Liens vers les archives deja transcrites, sur le site de l'association (section facultative).
+  explorer: {
+    surtitre: { fr: 'À vous de chercher', en: 'Search for yourself' },
+    titre: { fr: 'Explorez les archives déjà transcrites', en: 'Explore the records already transcribed' },
+    intro: {
+      fr: 'Tout le travail déjà fait est en ligne, gratuitement, sur le site de l’A3PC. Un nom de famille vous dit quelque chose ? Cherchez-le.',
+      en: 'All the work done so far is online, free of charge, on the A3PC website (in French). Does a family name ring a bell? Look it up.',
+    },
+    liens: [
+      {
+        icone: '🔍',
+        href: 'https://a3pc.fr/archives/#recherche',
+        titre: { fr: 'Rechercher un nom', en: 'Search for a name' },
+        texte: { fr: 'Le moteur de recherche dans tous les actes transcrits : baptêmes, mariages, sépultures, recensements, soldats.', en: 'Search engine across all transcribed records: baptisms, marriages, burials, censuses, soldiers.' },
+      },
+      {
+        icone: '📜',
+        href: 'https://a3pc.fr/archives/',
+        titre: { fr: 'Les actes transcrits', en: 'The transcribed records' },
+        texte: { fr: 'Les registres de Chaumeré déchiffrés un par un depuis 1602, avec la cote et le lien vers l’image d’origine.', en: 'Chaumeré registers deciphered one by one since 1602, with the archive reference and a link to the original image.' },
+      },
+      {
+        icone: '🗂️',
+        href: 'https://a3pc.fr/archives/inventaire/',
+        titre: { fr: 'L’index des noms', en: 'The index of names' },
+        texte: { fr: 'Les noms de famille et prénoms relevés dans les archives, et la frise des registres transcrits.', en: 'Family names and first names found in the archives, with a timeline of the transcribed registers.' },
+      },
+      {
+        icone: '🌳',
+        href: 'https://a3pc.fr/archives/familles/',
+        titre: { fr: 'Les familles de Chaumeré', en: 'The families of Chaumeré' },
+        texte: { fr: 'Des noms présents dans les registres de 1602 comme dans le recensement de 1911.', en: 'Names found both in the 1602 registers and in the 1911 census.' },
+      },
+    ],
   },
 
   frise: {

@@ -10,11 +10,17 @@ export const PROGRAMME = {
     fr: 'Rendre leur nom aux oubliés, un village après l’autre.',
     en: 'Giving forgotten people their names back, one village at a time.',
   },
-  // Qui porte le programme pour l'instant.
+  // Google Tag Manager : charge UNIQUEMENT apres l'accord du visiteur dans le bandeau de cookies (RGPD).
+  idGoogleTagManager: 'GTM-P55LC6PV',
+  // Qui porte le programme pour l'instant (editeur du site, repris des mentions legales de a3pc.fr).
   porteur: {
     nom: 'A3PC',
     nomComplet: 'Association pour la Promotion du Pays de Chaumeré',
     site: 'https://a3pc.fr/',
+    siege: "4 allée de l'École, Chaumeré, 35113 Domagné, France",
+    rna: 'W351007269',
+    declaration: { fr: 'déclarée en préfecture le 27 septembre 2026', en: 'registered with the prefecture on 27 September 2026' },
+    directeurPublication: { fr: 'Julien GUILLOIS, président de l’A3PC', en: 'Julien GUILLOIS, president of A3PC' },
     // Adresse e-mail ecrite a l'envers (limite les robots qui collectent les adresses).
     courrielInverse: 'moc.liamg@cp3a.tcatnoc',
   },

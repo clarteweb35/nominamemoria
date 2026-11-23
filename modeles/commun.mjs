@@ -56,7 +56,7 @@ ${urlImage ? `<meta property="og:image" content="${urlImage}">\n<meta name="twit
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="${racine}style.css">
 </head>
-<body>
+<body data-gtm="${PROGRAMME.idGoogleTagManager}">
 
 <header class="barre" id="barre">
   <div class="conteneur">
@@ -75,7 +75,35 @@ ${contenu}
   <div class="conteneur grille">
     ${pied}
   </div>
+  <div class="conteneur pied-legal">
+    <a href="${racine}mentions-legales/">${t({ fr: 'Mentions légales et données personnelles', en: 'Legal notice and privacy' })}</a> ·
+    <button type="button" class="lien-cookies" data-ouvrir-cookies>${t({ fr: 'Cookies', en: 'Cookie settings' })}</button>
+  </div>
 </footer>
+
+<!-- Question prealable : rien de Google n'est charge avant un clic sur « Accepter » -->
+<div class="bandeau-cookies" id="bandeau-cookies" role="dialog" aria-labelledby="titre-cookies" hidden>
+  <div class="conteneur">
+    <div>
+      <p class="titre-cookies" id="titre-cookies">${t({ fr: 'Acceptez-vous la mesure d’audience ?', en: 'Do you accept audience measurement?' })}</p>
+      ${bloc('p', {
+        fr: `Avec votre accord, nous utilisons les outils de Google (Google Tag Manager) pour savoir combien de personnes visitent ce site et d’où elles viennent. Ces outils déposent des cookies. Sans accord, rien n’est chargé et le site fonctionne tout aussi bien. <a href="${racine}mentions-legales/#donnees">En savoir plus</a>`,
+        en: `With your consent, we use Google tools (Google Tag Manager) to learn how many people visit this site and where they come from. These tools set cookies. Without consent, nothing is loaded and the site works just the same. <a href="${racine}mentions-legales/#donnees">Learn more</a>`,
+      })}
+    </div>
+    <div class="choix-cookies">
+      <button type="button" class="bouton bouton-contour" data-choix-cookies="refuse">${t({ fr: 'Refuser', en: 'Decline' })}</button>
+      <button type="button" class="bouton bouton-contour" data-choix-cookies="accepte">${t({ fr: 'Accepter', en: 'Accept' })}</button>
+    </div>
+  </div>
+</div>
+
+<!-- Affichage en grand des documents d'archives (images marquees data-agrandir) -->
+<dialog class="visionneuse" id="visionneuse">
+  <button type="button" class="fermer" data-fermer-visionneuse aria-label="Fermer / Close">✕</button>
+  <img src="" alt="" id="visionneuse-image">
+  <p class="visionneuse-aide">${t({ fr: 'Faites défiler pour explorer le document · Échap ou ✕ pour fermer', en: 'Scroll to explore the document · Esc or ✕ to close' })}</p>
+</dialog>
 <script src="${racine}script.js"></script>
 </body>
 </html>

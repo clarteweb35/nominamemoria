@@ -4,6 +4,7 @@ import { readdir, mkdir, writeFile, cp, rm, access } from 'node:fs/promises';
 import { pathToFileURL } from 'node:url';
 import { pageAccueil } from './modeles/accueil.mjs';
 import { pageVillage } from './modeles/village.mjs';
+import { pageMentions } from './modeles/mentions.mjs';
 
 const SORTIE = 'dist';
 const erreurs = [];
@@ -56,6 +57,8 @@ for (const v of villages) {
   await mkdir(`${SORTIE}/${v.slug}`, { recursive: true });
   await writeFile(`${SORTIE}/${v.slug}/index.html`, pageVillage(v));
 }
+await mkdir(`${SORTIE}/mentions-legales`, { recursive: true });
+await writeFile(`${SORTIE}/mentions-legales/index.html`, pageMentions(villages));
 // Le domaine nominamemoria.org est declare dans public/CNAME (copie avec le reste de public/).
 
 console.log(`Site construit dans ${SORTIE}/ : accueil + ${villages.length} village(s) (${villages.map((v) => v.nom).join(', ')}).`);

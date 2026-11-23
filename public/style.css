@@ -166,3 +166,57 @@ footer a { color: var(--or-clair); }
   .heros .actions .bouton { width: 100%; }
   .bouton { padding: 14px 20px; }
 }
+
+/* Pied de page : mentions legales et reglage des cookies */
+.pied-legal { margin-top: 24px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.08); font-size: .82rem; }
+.lien-cookies { background: none; border: 0; padding: 0; color: var(--or-clair); text-decoration: underline; font: inherit; cursor: pointer; }
+
+/* Bandeau de cookies (question prealable) : les deux choix ont le meme poids, comme le demande la CNIL */
+.bandeau-cookies { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; background: #fff; color: var(--texte); box-shadow: 0 -10px 40px rgba(15,29,48,.25); border-top: 4px solid var(--or); padding: 20px 0; }
+.bandeau-cookies[hidden] { display: none; }
+.bandeau-cookies .conteneur { display: flex; gap: 24px; align-items: center; justify-content: space-between; }
+.bandeau-cookies p { margin: 0 0 .3em; font-size: .92rem; color: var(--doux); }
+.bandeau-cookies .titre-cookies { font-family: Fraunces, Georgia, serif; font-size: 1.1rem; color: var(--texte); }
+.bandeau-cookies a { color: var(--bleu); font-weight: 600; }
+.choix-cookies { display: flex; gap: 10px; flex-shrink: 0; }
+.bouton-contour { background: #fff; color: var(--bleu); border-color: var(--bleu); padding: 11px 22px; }
+.bouton-contour:hover { background: var(--bleu); color: #fff; }
+
+/* Document d'archive cliquable et visionneuse plein ecran */
+.agrandir { position: relative; display: block; cursor: zoom-in; }
+.loupe { position: absolute; right: 12px; bottom: 12px; background: rgba(15,29,48,.85); color: #fff; font-size: .82rem; font-weight: 600; padding: 7px 12px; border-radius: 999px; }
+.agrandir:hover .loupe { background: var(--or); }
+figcaption a { color: var(--bleu); font-weight: 600; }
+.visionneuse { width: 100vw; height: 100vh; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: rgba(10,20,34,.96); overflow: auto; }
+.visionneuse::backdrop { background: rgba(10,20,34,.9); }
+.visionneuse img { max-width: none; width: auto; min-width: min(100%, 1400px); margin: 60px auto 50px; border-radius: 4px; }
+.visionneuse .fermer { position: fixed; top: 14px; right: 18px; width: 46px; height: 46px; border-radius: 50%; border: 0; background: #fff; color: var(--nuit); font-size: 1.3rem; cursor: pointer; z-index: 2; }
+.visionneuse-aide { position: fixed; left: 0; right: 0; bottom: 0; margin: 0; padding: 10px; text-align: center; color: #c9cdd6; font-size: .82rem; background: rgba(10,20,34,.85); }
+
+/* Explorer les archives (liens vers le site de l'association) */
+.explorer { background: #fff; }
+.grille-explorer { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 36px; }
+.carte-lien { display: flex; flex-direction: column; background: var(--creme); border: 1px solid var(--bord); border-radius: 18px; padding: 24px; text-decoration: none; transition: transform .2s, box-shadow .2s, border-color .2s; }
+.carte-lien:hover { transform: translateY(-4px); box-shadow: 0 18px 36px rgba(30,58,95,.12); border-color: var(--or); }
+.carte-lien-icone { font-size: 1.8rem; margin-bottom: 10px; }
+.carte-lien h3 { font-size: 1.15rem; margin-bottom: .4em; }
+.carte-lien p { color: var(--doux); font-size: .92rem; flex: 1; }
+
+/* Page des mentions legales */
+.legal { padding-top: 130px; }
+.legal h1 { font-size: clamp(2rem, 5vw, 3rem); }
+.rubrique { background: #fff; border: 1px solid var(--bord); border-radius: 16px; padding: 26px 28px; margin-top: 22px; scroll-margin-top: 90px; }
+.rubrique h2 { font-size: 1.4rem; }
+.rubrique p { color: var(--texte); }
+.rubrique p:last-child { margin-bottom: 0; }
+.rubrique a, .retour a { color: var(--bleu); font-weight: 600; }
+.retour { margin-top: 30px; }
+
+@media (max-width: 860px) {
+  .grille-explorer { grid-template-columns: 1fr 1fr; }
+  .bandeau-cookies .conteneur { flex-direction: column; align-items: stretch; gap: 14px; }
+  .choix-cookies .bouton { flex: 1; }
+}
+@media (max-width: 480px) {
+  .grille-explorer { grid-template-columns: 1fr; }
+}
