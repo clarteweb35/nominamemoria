@@ -1,17 +1,19 @@
-name: Mettre en ligne chez OVH
-# Le site est heberge uniquement chez OVH. GitHub range le code et, a chaque envoi sur main,
-# construit le site puis le copie par FTP dans le dossier www de l'hebergement OVH.
+name: Mettre en ligne sur GitHub Pages
+# Le site est affiche par GitHub Pages (aucun mot de passe ne circule), a l'adresse nominamemoria.org
+# (domaine achete chez OVH, declare dans public/CNAME). A chaque envoi sur main : construction puis publication.
 on:
   push:
     branches: [main]
   workflow_dispatch:
 permissions:
   contents: read
+  pages: write
+  id-token: write
 concurrency:
-  group: "ovh"
+  group: "pages"
   cancel-in-progress: false
 jobs:
-  envoyer:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Recuperer le code
@@ -22,12 +24,17 @@ jobs:
           node-version: '22'
       - name: Construire le site (et verifier les villages)
         run: node construire.mjs
-      # Identifiants FTP ranges dans Settings > Secrets and variables > Actions (jamais dans le code).
-      - name: Envoyer le site chez OVH (FTP)
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      - name: Preparer les fichiers pour Pages
+        uses: actions/upload-pages-artifact@v3
         with:
-          server: ${{ secrets.FTP_SERVEUR }}
-          username: ${{ secrets.FTP_IDENTIFIANT }}
-          password: ${{ secrets.FTP_MOT_DE_PASSE }}
-          local-dir: ./dist/
-          server-dir: ./www/
+          path: ./dist
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publier sur GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

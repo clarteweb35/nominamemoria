@@ -56,6 +56,6 @@ for (const v of villages) {
   await mkdir(`${SORTIE}/${v.slug}`, { recursive: true });
   await writeFile(`${SORTIE}/${v.slug}/index.html`, pageVillage(v));
 }
-// Domaine personnalise : un fichier CNAME a la racine de public/ suffit (voir LISEZMOI.md).
+// Le domaine nominamemoria.org est declare dans public/CNAME (copie avec le reste de public/).
 
 console.log(`Site construit dans ${SORTIE}/ : accueil + ${villages.length} village(s) (${villages.map((v) => v.nom).join(', ')}).`);
