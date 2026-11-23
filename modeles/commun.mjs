@@ -54,6 +54,8 @@ ${urlImage ? `<meta property="og:image" content="${urlImage}">\n<meta name="twit
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- Lettrines N et M du titre (Cinzel Decorative) : seules ces deux lettres sont telechargees -->
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&text=NM&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="${racine}style.css">
 </head>
 <body data-gtm="${PROGRAMME.idGoogleTagManager}">

@@ -220,3 +220,7 @@ figcaption a { color: var(--bleu); font-weight: 600; }
 @media (max-width: 480px) {
   .grille-explorer { grid-template-columns: 1fr; }
 }
+
+/* Lettrines du grand titre : capitales decorees facon ecriture ancienne */
+.lettrine { font-family: 'Cinzel Decorative', Fraunces, Georgia, serif; font-weight: 700; color: var(--or-clair); font-size: 1.12em; line-height: 0; }
+.titre-programme .lettrine:first-child { margin-left: .14em; }
