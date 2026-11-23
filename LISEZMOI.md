@@ -6,7 +6,7 @@
 Programme bilingue (français / anglais) qui fait revivre les registres anciens des villages grâce à l'IA et à des bénévoles, et qui cherche des soutiens : donateurs, mécènes, universités, chercheurs. Lancé par l'A3PC (Chaumeré, France), avec **Chaumeré comme village pilote**. Le site est conçu pour être **dupliqué** : un fichier par village.
 
 - Dépôt : https://github.com/clarteweb35/nominamemoria
-- Adresse principale : **https://nominamemoria.org/** (domaine acheté chez OVH le 23/11/2026), **hébergement OVH gratuit 100 Mo** (en test).
+- Adresse principale : **https://nominamemoria.org/** (domaine acheté chez OVH le 23/11/2026), **hébergement OVH gratuit 100 Mo**, en ligne depuis le 23/11/2026 (cluster129, login FTP `nominae`). HTTPS : certificat SSL demandé, à vérifier ; une fois actif, ajouter `public/.htaccess` pour rediriger http vers https.
 - Copie de secours : https://clarteweb35.github.io/nominamemoria/ (GitHub Pages, toujours à jour).
 - Domaine optionnel : `nomina-memoria.eu` (non acheté).
 
